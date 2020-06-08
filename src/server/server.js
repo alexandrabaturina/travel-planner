@@ -33,8 +33,9 @@ app.listen(PORT, () => {
 
 app.post('/api', function (req, res) {
     const placename = req.body.city;
+    const country = req.body.code;
     console.log(placename);
-    const GEONAMES_API_ENDPOINT = `http://api.geonames.org/postalCodeSearchJSON?placename=${placename}&maxRows=10&username=${process.env.GEONAMES_USERNAME}`;
+    const GEONAMES_API_ENDPOINT = `http://api.geonames.org/postalCodeSearchJSON?placename=${placename}&country=${country}&maxRows=10&username=${process.env.GEONAMES_USERNAME}`;
     console.log(GEONAMES_API_ENDPOINT)
 
     http.get(GEONAMES_API_ENDPOINT, (response) => {
