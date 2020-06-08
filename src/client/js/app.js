@@ -32,6 +32,9 @@ const mapping = {
     "UA": "Ukraine", "QA": "Qatar", "MZ": "Mozambique"
 };
 
+// Primary object to store data
+const projectData = {};
+
 const selectCountry = document.getElementById('destination-country');
 for (code in mapping) {
     selectCountry.options[selectCountry.options.length] = new Option(mapping[code], code);
@@ -53,8 +56,24 @@ handleSubmit = async () => {
         }
     })
     const query = await apiQuery.json();
-    console.log(query)
+    projectData.latitude = query.postalCodes[0].lat
+    projectData.longitude = query.postalCodes[0].lng
+    console.log(`Latitude: ${projectData.latitude}`);
+    console.log(`Longitude: ${projectData.longitude}`);
 
+
+    const weatherbitQuery = await fetch('http://localhost:8081/weatherbit', {
+        method: 'POST',
+        body: JSON.stringify({ lat: projectData.latitude, lon: projectData.longitude }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    const weather = await weatherbitQuery.json();
+    weather.data.forEach(item => {
+        console.log(item.datetime)
+        console.log(item.app_max_temp)
+    })
 }
 
 
