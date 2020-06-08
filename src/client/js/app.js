@@ -43,14 +43,17 @@ for (code in mapping) {
 handleSubmit = async () => {
     event.preventDefault()
 
-    let destinationCountry = document.getElementById('destination-country').value;
+    let destinationCountryCode = document.getElementById('destination-country').value;
+    let destinationCountry = mapping[destinationCountryCode];
     let destinationCity = document.getElementById('destination-city').value;
+    projectData.city = destinationCity;
+    projectData.country = destinationCountry;
 
     console.log(`Destination: ${destinationCity}, ${destinationCountry}`);
 
     const apiQuery = await fetch('http://localhost:8081/api', {
         method: 'POST',
-        body: JSON.stringify({ city: destinationCity, code: destinationCountry }),
+        body: JSON.stringify({ city: destinationCity, code: destinationCountryCode }),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -61,7 +64,7 @@ handleSubmit = async () => {
     console.log(`Latitude: ${projectData.latitude}`);
     console.log(`Longitude: ${projectData.longitude}`);
 
-
+    // Weatherbit API call
     const weatherbitQuery = await fetch('http://localhost:8081/weatherbit', {
         method: 'POST',
         body: JSON.stringify({ lat: projectData.latitude, lon: projectData.longitude }),
@@ -74,8 +77,21 @@ handleSubmit = async () => {
         console.log(item.datetime)
         console.log(item.app_max_temp)
     })
-}
 
+    // Pixabay API call
+    const pixabayQuery = await fetch('http://localhost:8081/pixabay', {
+        method: 'POST',
+        body: JSON.stringify({ city: destinationCity, country: destinationCountry }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    const pixabayImage = await pixabayQuery.json();
+    console.log(pixabayImage.hits[0].pageURL);
+    projectData.imageURL = pixabayImage.hits[0].pageURL
+
+    console.log(projectData);
+}
 
 
 const submitRequest = document.getElementById('plan-trip');
@@ -84,3 +100,4 @@ if (submitRequest) {
         handleSubmit(event);
     })
 }
+

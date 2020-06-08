@@ -6,6 +6,7 @@ dotenv.config();
 // console.log(`Your Geonames username is ${process.env.GEONAMES_USERNAME}`);
 
 const BASE_URL_WEATHERBIT = 'http://api.weatherbit.io/v2.0/forecast/daily'
+const BASE_URL_PIXABAY = `https://pixabay.com/api/?key=${process.env.PIXABAY_API_KEY}`
 
 
 const path = require('path');
@@ -15,6 +16,7 @@ const PORT = 8081;
 const app = express()
 
 const http = require('http');
+const https = require('https')
 
 // Configure express
 const bodyParser = require('body-parser');
@@ -50,7 +52,7 @@ app.post('/api', function (req, res) {
         // The whole response has been received. Print out the result.
         response.on('end', () => {
             res.send(JSON.parse(data))
-            console.log(data)
+            // console.log(data)
         });
     })
 })
@@ -65,18 +67,37 @@ app.post('/weatherbit', function (req, res) {
         let data = '';
         response.on('data', (chunk) => {
             data += chunk;
-            console.log(data)
+            // console.log(data)
         });
 
         response.on('end', () => {
-            console.log(data)
+            // console.log(data)
             res.send(JSON.parse(data))
 
         })
     })
 })
 
+app.post('/pixabay', function (req, res) {
+    const city = req.body.city;
+    const country = req.body.country;
+    const PIXABAY_API_ENDPOINT = `${BASE_URL_PIXABAY}&q=${city}+${country}&image_type=photo&per_page=3`
+    console.log(PIXABAY_API_ENDPOINT);
 
+    https.get(PIXABAY_API_ENDPOINT, (response) => {
+        let data = '';
+        response.on('data', (chunk) => {
+            data += chunk;
+            console.log(data)
+        });
+
+        response.on('end', () => {
+            // console.log(data)
+            res.send(JSON.parse(data))
+
+        })
+    })
+})
 
 app.get('/', function (req, res) {
     res.sendFile(path.resolve('index.html'))
