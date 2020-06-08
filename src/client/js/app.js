@@ -39,6 +39,13 @@ const selectCountry = document.getElementById('destination-country');
 for (code in mapping) {
     selectCountry.options[selectCountry.options.length] = new Option(mapping[code], code);
 }
+// Current date
+let date = new Date();
+day = ((date.getDate() < 10) ? "0" : "") + date.getDate();
+month = ((date.getMonth() < 10) ? "0" : "") + date.getMonth();
+let currentDate = `${date.getFullYear()}-${month}-${day}`
+console.log(`Current date: ${currentDate}`);
+
 
 handleSubmit = async () => {
     event.preventDefault()
