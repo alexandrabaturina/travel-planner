@@ -52,6 +52,14 @@ for (code in mapping) {
 // projectData.currentDate = currentDate;
 // console.log(`Today's date: ${currentDate}`);
 
+// UI elements
+const daysBeforeTrip = document.getElementById('days-before-trip');
+const typicalWeather = document.getElementById('typical-weather');
+const minTemperature = document.getElementById('min-temperature');
+const maxTemperature = document.getElementById('max-temperature');
+const weatherDescription = document.getElementById('weather-description');
+const weatherIcon = document.getElementById('weather-icon');
+
 // Current date in ms since Jan 1, 1970
 let currentDate = Date.now();
 console.log(`Today's date in ms (since Jan 1, 1970): ${currentDate}`);
@@ -75,6 +83,7 @@ handleSubmit = async () => {
     console.log(startDate);
     let daysAway = Math.round((startDate.getTime() - currentDate) / (1000 * 3600 * 24));
     console.log(`Trip is ${daysAway} days away.`);
+    projectData.daysAway = daysAway;
 
 
 
@@ -109,6 +118,15 @@ handleSubmit = async () => {
     })
     const weather = await weatherbitQuery.json();
     weather.data.forEach(item => {
+        console.log(item);
+        projectData.maxTemp = item.max_temp;
+        projectData.minTemp = item.min_temp;
+        projectData.weatherDescription = item.weather.description;
+        projectData.weatherIcon = item.weather.icon;
+
+        // console.log(projectData.maxTemp, projectData.minTemp);
+        // console.log(item.weather.icon);
+
         // parsedDate = Date.parse(item.datetime)
         // console.log(`date ${item.datetime}, temperature: ${item.app_max_temp}`)
         // console.log(parsedDate)
@@ -124,7 +142,6 @@ handleSubmit = async () => {
         }
     })
     const pixabayImage = await pixabayQuery.json();
-    console.log(pixabayImage);
     console.log(`Image URL: ${pixabayImage.hits[0].webformatURL}`);
     projectData.imageURL = pixabayImage.hits[0].webformatURL;
 
@@ -133,8 +150,15 @@ handleSubmit = async () => {
 }
 
 updateUI = (projectData) => {
-    console.log('Updating UI!')
     pixabayImage.src = projectData.imageURL;
+    daysBeforeTrip.innerText = `Your trip to ${projectData.city}, ${projectData.country} is ${projectData.daysAway} days away.`
+    typicalWeather.innerText = 'Typical weather for then is:';
+    minTemperature.innerText = `Min temperature: ${projectData.minTemp}`;
+    maxTemperature.innerText = `Max temperature: ${projectData.maxTemp}`;
+    weatherDescription.innerText = `${projectData.weatherDescription}.`
+    weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${projectData.weatherIcon}.png`
+    console.log(`https://www.weatherbit.io/static/img/icons/${projectData.weatherIcon}.png`)
+
 }
 
 const submitRequest = document.getElementById('plan-trip');
