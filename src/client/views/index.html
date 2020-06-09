@@ -10,16 +10,32 @@
 <body>
     <div class="container">
         <div class="header">
-            Header
+            Travel Planner
         </div>
 
+
         <div class="image">
-            Image
+            <img id="pixabay-image"
+                src="https://pixabay.com/get/52e6d4474952ab14f1dc846096293177153adae4514c704c7c2e7dd1904dc459_640.jpg"
+                alt="Image from Pixabay">
+            <div id="pixabay-logo">
+                <a href="https://pixabay.com/">
+                    <img id="logo-image" src="https://pixabay.com/static/img/public/leaderboard_b.png" alt="Pixabay">
+                </a>
+            </div>
         </div>
 
         <div class="trip-info">
+            <!-- <div class="quote">
+
+                <blockquote>
+                    <p>The gladdest moment in human life, methinks, is a departure into unknown lands.</p>
+                    <footer> - <cite>Sir Richard Burton</cite> </footer>
+
+                    </aside>
+            </div> -->
             <form>
-                <div>Trip Info</div>
+                <h2>Trip Info</h2>
                 <div id="define-destination">
                     <label>Destination</label>
                     <input id="destination-city" type="text" name="input"
@@ -28,7 +44,7 @@
                 </div>
                 <div id="start-date">
                     <label>Start date:</label>
-                    <input type="date">
+                    <input id="trip-start-date" type="date">
                 </div>
                 <button id="plan-trip" type="submit"> Plan Your Trip </button>
             </form>
