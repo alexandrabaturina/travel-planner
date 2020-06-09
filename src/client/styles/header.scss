@@ -1,3 +1,9 @@
+$header-bgcolor: #765b58;
+$heaher-fontcolor: #e6d6c5;
+
 .header {
     grid-area: hd;
+    font-size: 3em;
+    background-color: $header-bgcolor;
+    color: $heaher-fontcolor;
 }

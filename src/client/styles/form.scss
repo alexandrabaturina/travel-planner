@@ -1,0 +1,42 @@
+// .quote {
+//     color: #231E28;
+//     font-family: 'Kalam', cursive;
+//     font-size: 1.1em;
+//     padding: 30px 30px 30px 60px;
+//     border-left: 8px solid #7fb9c2;
+//     // background: #d8d3d0;
+//     font-weight: bold;
+//     position: relative;
+// }
+
+// .quote:before {
+//     content: "\201C";
+//     font-family: Arial;
+//     color: #7fb9c2;
+//     font-size: 70px;
+//     position: absolute; 
+//     left: 15px;
+//     top: 30px;
+// }
+
+
+.trip-info {
+    border: 1px solid black;
+    padding-top: 50px;
+}
+
+.trip-info form {
+    display: flex;
+    flex-direction: column;
+}
+
+form h2 {
+    font-size: 2em;
+    font-weight: 800;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+#plan-trip {
+    width: 300px;
+}

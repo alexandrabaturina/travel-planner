@@ -1,17 +1,24 @@
+// // #765b58 // dark
+// #b9a195 // coffe
+// #dad2c5 // grey
+// #e6d6c5 // beige
+// #d5a069 // orange
+
 body {
     margin: 0;
     padding: 0;
+    background-color: #dad2c5;
 }
 
 .container {
     width: 100%;
     display: grid;
     min-height: 100vh;
-    grid-template-columns: 35% 65%;
+    grid-template-columns: 40% 60%;
     grid-auto-rows: 100px 1fr 70px;
     grid-template-areas:
       "hd hd"
-      "image info"
+      "info image"
       "ft ft";
 }
 
