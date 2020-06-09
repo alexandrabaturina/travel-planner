@@ -1,22 +1,26 @@
 // Protect API keys with env variables
 const dotenv = require('dotenv');
 dotenv.config();
-// console.log(`Your Pixabay API key is ${process.env.PIXABAY_API_KEY}`);
-// console.log(`Your Weatherbit API key is ${process.env.WEATHERBIT_API_KEY}`);
-// console.log(`Your Geonames username is ${process.env.GEONAMES_USERNAME}`);
 
-const BASE_URL_WEATHERBIT = 'http://api.weatherbit.io/v2.0/forecast/daily'
-const BASE_URL_PIXABAY = `https://pixabay.com/api/?key=${process.env.PIXABAY_API_KEY}`
+// API keys
+const GEONAMES_USERNAME = process.env.GEONAMES_USERNAME,
+    WEATHERBIT_KEY = process.env.WEATHERBIT_API_KEY,
+    PIXABAY_KEY = process.env.PIXABAY_API_KEY;
+
+// Base URLs
+const BASE_URL_GEONAMES = 'http://api.geonames.org/postalCodeSearchJSON',
+    BASE_URL_WEATHERBIT = 'http://api.weatherbit.io/v2.0/forecast/daily',
+    BASE_URL_PIXABAY = `https://pixabay.com/api/?key=${PIXABAY_KEY}`;
 
 
 const path = require('path');
 const express = require('express');
+const app = express();
 const PORT = 8081;
 
-const app = express()
-
+// Consts for HTTP/HTTPS requests
 const http = require('http');
-const https = require('https')
+const https = require('https');
 
 // Configure express
 const bodyParser = require('body-parser');
@@ -39,10 +43,11 @@ app.post('/api', function (req, res) {
     const placename = req.body.city;
     const country = req.body.code;
     console.log(placename);
-    const GEONAMES_API_ENDPOINT = `http://api.geonames.org/postalCodeSearchJSON?placename=${placename}&country=${country}&maxRows=1&username=${process.env.GEONAMES_USERNAME}`;
-    console.log(GEONAMES_API_ENDPOINT)
+    const geonamesQuery = `?placename=${placename}&country=${country}&maxRows=1&username=${GEONAMES_USERNAME}`;
+    const geonamesAPI = `${BASE_URL_GEONAMES}${geonamesQuery}`;
+    console.log(geonamesAPI)
 
-    http.get(GEONAMES_API_ENDPOINT, (response) => {
+    http.get(geonamesAPI, (response) => {
         let data = '';
         // A chunk of data has been recieved.
         response.on('data', (chunk) => {
@@ -59,10 +64,11 @@ app.post('/api', function (req, res) {
 app.post('/weatherbit', function (req, res) {
     const lat = req.body.lat;
     const lon = req.body.lon;
-    const WEATHERBIT_API_ENDPOINT = `${BASE_URL_WEATHERBIT}?lat=${lat}&lon=${lon}&key=${process.env.WEATHERBIT_API_KEY}`;
-    console.log(WEATHERBIT_API_ENDPOINT);
+    const weatherbitQuery = `?lat=${lat}&lon=${lon}&key=${WEATHERBIT_KEY}`;
+    const weatherbitAPI = `${BASE_URL_WEATHERBIT}${weatherbitQuery}`;
+    console.log(weatherbitAPI);
 
-    http.get(WEATHERBIT_API_ENDPOINT, (response) => {
+    http.get(weatherbitAPI, (response) => {
         let data = '';
         response.on('data', (chunk) => {
             data += chunk;
@@ -80,10 +86,11 @@ app.post('/weatherbit', function (req, res) {
 app.post('/pixabay', function (req, res) {
     const city = req.body.city;
     const country = req.body.country;
-    const PIXABAY_API_ENDPOINT = `${BASE_URL_PIXABAY}&q=${city}+${country}&image_type=photo&per_page=3&orientation=horizontal`
-    console.log(PIXABAY_API_ENDPOINT);
+    const pixabayQuery = `&q=${city}+${country}&image_type=photo&per_page=3&orientation=horizontal`;
+    const pixabayAPI = `${BASE_URL_PIXABAY}${pixabayQuery}`;
+    console.log(pixabayAPI);
 
-    https.get(PIXABAY_API_ENDPOINT, (response) => {
+    https.get(pixabayAPI, (response) => {
         let data = '';
         response.on('data', (chunk) => {
             data += chunk;
