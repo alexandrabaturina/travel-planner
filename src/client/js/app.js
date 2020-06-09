@@ -31,7 +31,8 @@ const mapping = {
     "AR": "Argentina", "AU": "Australia", "AT": "Austria", "AW": "Aruba", "IN": "India", "AX": "Aland Islands", "AZ": "Azerbaijan", "IE": "Ireland", "ID": "Indonesia",
     "UA": "Ukraine", "QA": "Qatar", "MZ": "Mozambique"
 };
-
+// Default image
+const pixabayImage = document.getElementById('pixabay-image');
 // Primary object to store data
 const projectData = {};
 
@@ -40,15 +41,42 @@ for (code in mapping) {
     selectCountry.options[selectCountry.options.length] = new Option(mapping[code], code);
 }
 // Current date
-let date = new Date();
-day = ((date.getDate() < 10) ? "0" : "") + date.getDate();
-month = ((date.getMonth() < 10) ? "0" : "") + date.getMonth();
-let currentDate = `${date.getFullYear()}-${month}-${day}`
-console.log(`Current date: ${currentDate}`);
+// let date = new Date();
+// let dateString = new Date().toString();
+// let parsedDate = Date.parse(dateString);
+// console.log(`Today's date in string format: ${dateString}`);
+// console.log(`Today's date in ms since Jan 1970: ${parsedDate}`);
+// day = ((date.getDate() < 10) ? "0" : "") + date.getDate();
+// month = ((date.getMonth() < 10) ? "0" : "") + date.getMonth();
+// let currentDate = `${date.getFullYear()}-${month}-${day}.`;
+// projectData.currentDate = currentDate;
+// console.log(`Today's date: ${currentDate}`);
+
+// Current date in ms since Jan 1, 1970
+let currentDate = Date.now();
+console.log(`Today's date in ms (since Jan 1, 1970): ${currentDate}`);
+
 
 
 handleSubmit = async () => {
     event.preventDefault()
+
+    // let tripStartDate = document.getElementById('trip-start-date').value;
+    // projectData.startDate = tripStartDate;
+    // let parsedStartDate = Date.parse(tripStartDate);
+    // console.log(`Trip start date: ${tripStartDate}, in ms: ${parsedStartDate}`);
+    // daysAway = Math.round((parsedStartDate - parsedDate) / (60 * 60 * 24 * 1000));
+    // console.log(`Trip is ${daysAway} days away`);
+
+    let tripStartDate = document.getElementById('trip-start-date').value;
+    console.log(`Trip start date: ${tripStartDate}`);
+    let [year, month, day] = tripStartDate.split('-');
+    startDate = new Date(year, month - 1, day);
+    console.log(startDate);
+    let daysAway = Math.round((startDate.getTime() - currentDate) / (1000 * 3600 * 24));
+    console.log(`Trip is ${daysAway} days away.`);
+
+
 
     let destinationCountryCode = document.getElementById('destination-country').value;
     let destinationCountry = mapping[destinationCountryCode];
@@ -81,8 +109,10 @@ handleSubmit = async () => {
     })
     const weather = await weatherbitQuery.json();
     weather.data.forEach(item => {
-        console.log(item.datetime)
-        console.log(item.app_max_temp)
+        // parsedDate = Date.parse(item.datetime)
+        // console.log(`date ${item.datetime}, temperature: ${item.app_max_temp}`)
+        // console.log(parsedDate)
+        // console.log(`date string: ${item.datetime.toString()}`)
     })
 
     // Pixabay API call
@@ -94,12 +124,18 @@ handleSubmit = async () => {
         }
     })
     const pixabayImage = await pixabayQuery.json();
-    console.log(pixabayImage.hits[0].pageURL);
-    projectData.imageURL = pixabayImage.hits[0].pageURL
+    console.log(pixabayImage);
+    console.log(`Image URL: ${pixabayImage.hits[0].webformatURL}`);
+    projectData.imageURL = pixabayImage.hits[0].webformatURL;
 
     console.log(projectData);
+    updateUI(projectData);
 }
 
+updateUI = (projectData) => {
+    console.log('Updating UI!')
+    pixabayImage.src = projectData.imageURL;
+}
 
 const submitRequest = document.getElementById('plan-trip');
 if (submitRequest) {
