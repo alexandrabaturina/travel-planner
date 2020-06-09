@@ -39,7 +39,7 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
 
-app.post('/api', function (req, res) {
+app.post('/geonames', function (req, res) {
     const placename = req.body.city;
     const country = req.body.code;
     console.log(placename);

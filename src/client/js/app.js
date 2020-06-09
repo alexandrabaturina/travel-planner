@@ -95,14 +95,15 @@ handleSubmit = async () => {
 
     console.log(`Destination: ${destinationCity}, ${destinationCountry}`);
 
-    const apiQuery = await fetch('http://localhost:8081/api', {
+    // Geonames API call
+    const geonamesQuery = await fetch('http://localhost:8081/geonames', {
         method: 'POST',
         body: JSON.stringify({ city: destinationCity, code: destinationCountryCode }),
         headers: {
             'Content-Type': 'application/json'
         }
     })
-    const query = await apiQuery.json();
+    const query = await geonamesQuery.json();
     projectData.latitude = query.postalCodes[0].lat
     projectData.longitude = query.postalCodes[0].lng
     console.log(`Latitude: ${projectData.latitude}`);
@@ -153,8 +154,8 @@ updateUI = (projectData) => {
     pixabayImage.src = projectData.imageURL;
     daysBeforeTrip.innerText = `Your trip to ${projectData.city}, ${projectData.country} is ${projectData.daysAway} days away.`
     typicalWeather.innerText = 'Typical weather for then is:';
-    minTemperature.innerText = `Min temperature: ${projectData.minTemp}`;
-    maxTemperature.innerText = `Max temperature: ${projectData.maxTemp}`;
+    minTemperature.innerText = `Min temperature: ${projectData.minTemp} C`;
+    maxTemperature.innerText = `Max temperature: ${projectData.maxTemp} C`;
     weatherDescription.innerText = `${projectData.weatherDescription}.`
     weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${projectData.weatherIcon}.png`
     console.log(`https://www.weatherbit.io/static/img/icons/${projectData.weatherIcon}.png`)
