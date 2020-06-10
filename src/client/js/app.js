@@ -371,8 +371,11 @@ updateUI = (projectData) => {
     typicalWeather.innerText = 'Typical weather for then is:';
     minTemperature.innerText = `Min temperature: ${projectData.minTemp} C`;
     maxTemperature.innerText = `Max temperature: ${projectData.maxTemp} C`;
-    weatherDescription.innerText = `${projectData.weatherDescription}.`
-    weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${projectData.weatherIcon}.png`
+    weatherDescription.innerText = `${projectData.weatherDescription}`
+    if (projectData.weatherIcon) {
+        weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${projectData.weatherIcon}.png`
+        weatherIcon.width = "50";
+    }
     console.log(`https://www.weatherbit.io/static/img/icons/${projectData.weatherIcon}.png`)
 
 }
