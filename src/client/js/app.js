@@ -255,17 +255,6 @@ const selectCountry = document.getElementById('destination-country');
 for (code in mapping) {
     selectCountry.options[selectCountry.options.length] = new Option(mapping[code], code);
 }
-// Current date
-// let date = new Date();
-// let dateString = new Date().toString();
-// let parsedDate = Date.parse(dateString);
-// console.log(`Today's date in string format: ${dateString}`);
-// console.log(`Today's date in ms since Jan 1970: ${parsedDate}`);
-// day = ((date.getDate() < 10) ? "0" : "") + date.getDate();
-// month = ((date.getMonth() < 10) ? "0" : "") + date.getMonth();
-// let currentDate = `${date.getFullYear()}-${month}-${day}.`;
-// projectData.currentDate = currentDate;
-// console.log(`Today's date: ${currentDate}`);
 
 // UI elements
 const daysBeforeTrip = document.getElementById('days-before-trip');
@@ -283,13 +272,6 @@ console.log(`Today's date in ms (since Jan 1, 1970): ${currentDate}`);
 
 handleSubmit = async () => {
     event.preventDefault()
-
-    // let tripStartDate = document.getElementById('trip-start-date').value;
-    // projectData.startDate = tripStartDate;
-    // let parsedStartDate = Date.parse(tripStartDate);
-    // console.log(`Trip start date: ${tripStartDate}, in ms: ${parsedStartDate}`);
-    // daysAway = Math.round((parsedStartDate - parsedDate) / (60 * 60 * 24 * 1000));
-    // console.log(`Trip is ${daysAway} days away`);
 
     let tripStartDate = document.getElementById('trip-start-date').value;
     console.log(`Trip start date: ${tripStartDate}`);
@@ -333,20 +315,28 @@ handleSubmit = async () => {
         }
     })
     const weather = await weatherbitQuery.json();
+    console.log(weather);
+
+    projectData.weatherIsAvailable = false;
+    projectData.maxTemp = weather.data[0].max_temp;
+    projectData.minTemp = weather.data[0].min_temp;
+    projectData.weatherDescription = weather.data[0].weather.description;
+    projectData.weatherIcon = weather.data[0].weather.icon;
+
     weather.data.forEach(item => {
         console.log(item);
-        projectData.maxTemp = item.max_temp;
-        projectData.minTemp = item.min_temp;
-        projectData.weatherDescription = item.weather.description;
-        projectData.weatherIcon = item.weather.icon;
 
-        // console.log(projectData.maxTemp, projectData.minTemp);
-        // console.log(item.weather.icon);
 
-        // parsedDate = Date.parse(item.datetime)
-        // console.log(`date ${item.datetime}, temperature: ${item.app_max_temp}`)
-        // console.log(parsedDate)
-        // console.log(`date string: ${item.datetime.toString()}`)
+        if (item.datetime === tripStartDate) {
+            console.log('Yes!');
+            projectData.weatherIsAvailable = true;
+            projectData.maxTemp = item.max_temp;
+            projectData.minTemp = item.min_temp;
+            projectData.weatherDescription = item.weather.description;
+            projectData.weatherIcon = item.weather.icon;
+            return
+
+        }
     })
 
     // Pixabay API call
@@ -365,6 +355,7 @@ handleSubmit = async () => {
     updateUI(projectData);
 }
 
+
 updateUI = (projectData) => {
     pixabayImage.src = projectData.imageURL;
     daysBeforeTrip.innerText = `Your trip to ${projectData.city}, ${projectData.country} is ${projectData.daysAway} days away.`
@@ -376,8 +367,6 @@ updateUI = (projectData) => {
         weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${projectData.weatherIcon}.png`
         weatherIcon.width = "50";
     }
-    console.log(`https://www.weatherbit.io/static/img/icons/${projectData.weatherIcon}.png`)
-
 }
 
 const submitRequest = document.getElementById('plan-trip');
