@@ -1,28 +1,7 @@
-// .quote {
-//     color: #231E28;
-//     font-family: 'Kalam', cursive;
-//     font-size: 1.1em;
-//     padding: 30px 30px 30px 60px;
-//     border-left: 8px solid #7fb9c2;
-//     // background: #d8d3d0;
-//     font-weight: bold;
-//     position: relative;
-// }
-
-// .quote:before {
-//     content: "\201C";
-//     font-family: Arial;
-//     color: #7fb9c2;
-//     font-size: 70px;
-//     position: absolute; 
-//     left: 15px;
-//     top: 30px;
-// }
-
-
 .trip-info {
     border: 1px solid black;
-    padding-top: 50px;
+    padding-top: 20px;
+    padding-left: 20px;
 }
 
 .trip-info form {
@@ -30,18 +9,27 @@
     flex-direction: column;
 }
 
-form h2 {
-    font-size: 2em;
-    font-weight: 800;
-    text-align: center;
-    padding-bottom: 20px;
+
+
+#define-destination {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#start-date,
+#define-destination > * {
+    margin-top: 10px;
 }
 
 #plan-trip {
     width: 300px;
 }
 
-#weather-forecast {
-    align-items: center;
-    display: flex;
+
+
+#plan-trip {
+    align-self: center;
+    margin-top: 20px;
 }
+
