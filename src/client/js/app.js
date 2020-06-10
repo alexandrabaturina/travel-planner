@@ -359,7 +359,8 @@ handleSubmit = async () => {
 updateUI = (projectData) => {
     pixabayImage.src = projectData.imageURL;
     daysBeforeTrip.innerText = `Your trip to ${projectData.city}, ${projectData.country} is ${projectData.daysAway} days away.`
-    typicalWeather.innerText = 'Typical weather for then is:';
+    typicalWeather.innerText = (projectData.weatherIsAvailable ? 'Typical weather for then is:' :
+        'The forecast for your date is not available. The weather for today is: ');
     minTemperature.innerText = `Min temperature: ${projectData.minTemp} C`;
     maxTemperature.innerText = `Max temperature: ${projectData.maxTemp} C`;
     weatherDescription.innerText = `${projectData.weatherDescription}`
