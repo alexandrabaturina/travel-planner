@@ -1,8 +1,11 @@
+$font-size: 1.1em;
+$font: Arial;
+
 .trip-info {
     border: 1px solid black;
     padding-top: 20px;
     padding-left: 20px;
-    font-size: 1.1em;
+    font-size: $font-size;
 }
 
 .trip-info form {
@@ -40,8 +43,14 @@
   background-color: white;
 }
 
+#trip-start-date {
+    font-size: $font-size;
+    font-style: $font;
+}
+
 
 #plan-trip {
     margin-top: 20px;
+    font-style: $font;
 }
 
