@@ -1,3 +1,15 @@
 .trip-info {
     grid-area: info;
 }
+
+#trip-data h2 {
+    font-size: 2em;
+    font-weight: 800;
+    text-align: center;
+    padding-top: 20px;
+}
+
+#weather-forecast {
+    align-items: center;
+    display: flex;
+}

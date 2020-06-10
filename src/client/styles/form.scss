@@ -2,6 +2,7 @@
     border: 1px solid black;
     padding-top: 20px;
     padding-left: 20px;
+    font-size: 1.1em;
 }
 
 .trip-info form {
@@ -9,7 +10,11 @@
     flex-direction: column;
 }
 
-
+#destination-city,
+#destination-country,
+#plan-trip {
+    width: 80%;
+}
 
 #define-destination {
     display: flex;
@@ -22,14 +27,21 @@
     margin-top: 10px;
 }
 
-#plan-trip {
-    width: 300px;
+.select-css {
+    height: 25px;
+    border-radius: 0.5em;
+    line-height: 1.2;
+    color: black;
+}
+
+.select-css:hover,
+.select-css:focus {
+  color: black;
+  background-color: white;
 }
 
 
-
 #plan-trip {
-    align-self: center;
     margin-top: 20px;
 }
 
