@@ -31,7 +31,6 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
-// Start up an instance of app
 app.use(express.static('dist'))
 
 // Listen for connections
@@ -39,6 +38,20 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
 
+const receiveData = () => {
+    let data = '';
+    // Data chunk received
+    response.on('data', (chunk) => {
+        data += chunk;
+    });
+
+    // The whole response received
+    response.on('end', () => {
+        res.send(JSON.parse(data))
+    });
+}
+
+// Geonames API call
 app.post('/geonames', function (req, res) {
     const placename = req.body.city;
     const country = req.body.code;
@@ -48,19 +61,11 @@ app.post('/geonames', function (req, res) {
     console.log(geonamesAPI)
 
     http.get(geonamesAPI, (response) => {
-        let data = '';
-        // A chunk of data has been recieved.
-        response.on('data', (chunk) => {
-            data += chunk;
-        });
-
-        // The whole response has been received. Print out the result.
-        response.on('end', () => {
-            res.send(JSON.parse(data))
-        });
+        receiveData(response);
     })
 })
 
+// Weatherbit API call
 app.post('/weatherbit', function (req, res) {
     const lat = req.body.lat;
     const lon = req.body.lon;
@@ -69,20 +74,11 @@ app.post('/weatherbit', function (req, res) {
     console.log(weatherbitAPI);
 
     http.get(weatherbitAPI, (response) => {
-        let data = '';
-        response.on('data', (chunk) => {
-            data += chunk;
-            // console.log(data)
-        });
-
-        response.on('end', () => {
-            // console.log(data)
-            res.send(JSON.parse(data))
-
-        })
+        receiveData(response);
     })
 })
 
+// Pixabay API call
 app.post('/pixabay', function (req, res) {
     const city = req.body.city;
     const country = req.body.country;
@@ -91,15 +87,7 @@ app.post('/pixabay', function (req, res) {
     console.log(pixabayAPI);
 
     https.get(pixabayAPI, (response) => {
-        let data = '';
-        response.on('data', (chunk) => {
-            data += chunk;
-        });
-
-        response.on('end', () => {
-            res.send(JSON.parse(data))
-
-        })
+        receiveData(response);
     })
 })
 
