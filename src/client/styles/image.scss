@@ -1,4 +1,5 @@
 $image-width: 500px;
+$error-message: #ee192d;
 
 .image {
     grid-area: image;
@@ -9,12 +10,12 @@ $image-width: 500px;
     padding-top: 50px;
 }
 
-#pixabay-image,
+#default-image,
 #pixabay-logo {
     width: $image-width;
 }
 
-#pixabay-image {
+#default-image {
     border-radius: 10px;
 }
 
@@ -23,3 +24,11 @@ $image-width: 500px;
     width: 100%;
 }
 
+#image-not-found {
+    padding-top: 20px;
+    color: $error-message;
+}
+
+#pixabay-logo a:hover {
+    opacity: 0.8;
+} 

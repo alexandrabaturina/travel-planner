@@ -1,6 +1,9 @@
 $font-size: 1.1em;
 $font: Arial;
 
+.bold {
+    font-weight: 600;
+}
 .trip-info {
     border: 1px solid black;
     padding-top: 20px;
@@ -17,6 +20,10 @@ $font: Arial;
 #destination-country,
 #plan-trip {
     width: 80%;
+}
+
+#destination-city {
+    height: 25px;
 }
 
 #define-destination {
@@ -48,9 +55,17 @@ $font: Arial;
     font-style: $font;
 }
 
-
 #plan-trip {
     margin-top: 20px;
     font-style: $font;
+    height: 25px;
 }
+
+
+#plan-trip:hover {
+    background-color: #765b58;
+    color: white;
+    border: none;
+}
+
 
