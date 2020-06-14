@@ -247,7 +247,8 @@ const mapping = {
 }
 
 // Default image
-const pixabayImage = document.getElementById('pixabay-image');
+const defaultImageSRC = 'src/client/img/pass.svg';
+
 // Primary object to store data
 const projectData = {};
 
@@ -263,6 +264,9 @@ const minTemperature = document.getElementById('min-temperature');
 const maxTemperature = document.getElementById('max-temperature');
 const weatherDescription = document.getElementById('weather-description');
 const weatherIcon = document.getElementById('weather-icon');
+const imageNotFound = document.getElementById('image-not-found');
+const defaultImage = document.getElementById('default-image');
+defaultImage.src = defaultImageSRC;
 
 // Current date in ms since Jan 1, 1970
 let currentDate = Date.now();
@@ -271,7 +275,9 @@ console.log(`Today's date in ms (since Jan 1, 1970): ${currentDate}`);
 
 
 handleSubmit = async () => {
-    event.preventDefault()
+    event.preventDefault();
+
+    imageNotFound.innerText = '';
 
     let tripStartDate = document.getElementById('trip-start-date').value;
     console.log(`Trip start date: ${tripStartDate}`);
@@ -315,7 +321,6 @@ handleSubmit = async () => {
         }
     })
     const weather = await weatherbitQuery.json();
-    console.log(weather);
 
     projectData.weatherIsAvailable = false;
     projectData.maxTemp = weather.data[0].max_temp;
@@ -348,8 +353,15 @@ handleSubmit = async () => {
         }
     })
     const pixabayImage = await pixabayQuery.json();
-    console.log(`Image URL: ${pixabayImage.hits[0].webformatURL}`);
-    projectData.imageURL = pixabayImage.hits[0].webformatURL;
+    console.log(pixabayImage);
+
+    if (pixabayImage.total !== 0) {
+        projectData.imageIsAvailable = true;
+        console.log(`Image URL: ${pixabayImage.hits[0].webformatURL}`);
+        projectData.imageURL = pixabayImage.hits[0].webformatURL;
+    } else {
+        projectData.imageIsAvailable = false;
+    }
 
     console.log(projectData);
     updateUI(projectData);
@@ -357,7 +369,14 @@ handleSubmit = async () => {
 
 
 updateUI = (projectData) => {
-    pixabayImage.src = projectData.imageURL;
+
+    if (projectData.imageIsAvailable) {
+        defaultImage.src = projectData.imageURL;
+    } else {
+        imageNotFound.innerText = `Sorry, there is no picture of ${projectData.city}, ${projectData.country} in Pixabay library.`
+        defaultImage.src = defaultImageSRC;
+    }
+
     daysBeforeTrip.innerText = `Your trip to ${projectData.city}, ${projectData.country} is ${projectData.daysAway} days away.`
     typicalWeather.innerText = (projectData.weatherIsAvailable ? 'Typical weather for then is:' :
         'The forecast for your date is not available. The weather for today is: ');
