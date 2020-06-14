@@ -1,9 +1,16 @@
 $font-size: 1.1em;
 $font: Arial;
+$error-message: #ee192d;
 
 .bold {
     font-weight: 600;
 }
+
+.error-message {
+    color: $error-message;
+    font-weight: 600;
+}
+
 .trip-info {
     border: 1px solid black;
     padding-top: 20px;
