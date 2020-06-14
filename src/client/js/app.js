@@ -266,6 +266,9 @@ const weatherDescription = document.getElementById('weather-description');
 const weatherIcon = document.getElementById('weather-icon');
 const imageNotFound = document.getElementById('image-not-found');
 const defaultImage = document.getElementById('default-image');
+const emptyCitiInput = document.getElementById('empty-city-input');
+const emptyDate = document.getElementById('empty-date');
+
 defaultImage.src = defaultImageSRC;
 
 // Disable past dates in date picker
@@ -284,9 +287,18 @@ console.log(`Today's date in ms (since Jan 1, 1970): ${currentDate}`);
 handleSubmit = async () => {
     event.preventDefault();
 
+    emptyDate.innerText = '';
+    emptyCitiInput.innerText = '';
     imageNotFound.innerText = '';
 
+
     let tripStartDate = document.getElementById('trip-start-date').value;
+
+    // Handle empty data picker
+    if (tripStartDate === '') {
+        emptyDate.innerText = "Date is required";
+        return
+    }
     console.log(`Trip start date: ${tripStartDate}`);
     let [year, month, day] = tripStartDate.split('-');
     startDate = new Date(year, month - 1, day);
@@ -300,6 +312,13 @@ handleSubmit = async () => {
     let destinationCountryCode = document.getElementById('destination-country').value;
     let destinationCountry = mapping[destinationCountryCode];
     let destinationCity = document.getElementById('destination-city').value;
+
+    // Handle empty city input 
+    if (destinationCity === '') {
+        emptyCitiInput.innerText = "The city of destination is required";
+        return
+    }
+
     projectData.city = destinationCity;
     projectData.country = destinationCountry;
 
