@@ -1,5 +1,20 @@
+$font-size: 1.1em;
+$font: Arial;
+$error-message: #ee192d;
+
 .trip-info {
     grid-area: info;
+    font-size: $font-size;
+    font-style: $font;
+}
+
+#no-response-from-api {
+    color: $error-message;
+    font-weight: 600;
+    line-height: 1.3em;
+}
+#trip-data > div {
+    padding-top: 20px;
 }
 
 #trip-data h2 {
