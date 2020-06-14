@@ -268,6 +268,8 @@ const imageNotFound = document.getElementById('image-not-found');
 const defaultImage = document.getElementById('default-image');
 const emptyCitiInput = document.getElementById('empty-city-input');
 const emptyDate = document.getElementById('empty-date');
+const noResponseFromAPI = document.getElementById('no-response-from-api');
+const tripInfoHeader = document.getElementById('trip-info-header');
 
 defaultImage.src = defaultImageSRC;
 
@@ -290,12 +292,32 @@ handleSubmit = async () => {
     emptyDate.innerText = '';
     emptyCitiInput.innerText = '';
     imageNotFound.innerText = '';
+    noResponseFromAPI.innerText = '';
+    tripInfoHeader.innerText = '';
 
+    let destinationCity = document.getElementById('destination-city').value;
+
+    // Handle empty city input 
+    if (destinationCity === '') {
+        console.error("The city of destination is not specified.")
+        emptyCitiInput.innerText = "The city of destination is required";
+        return
+    }
+
+    let destinationCountryCode = document.getElementById('destination-country').value;
+    let destinationCountry = mapping[destinationCountryCode];
+
+
+    projectData.city = destinationCity;
+    projectData.country = destinationCountry;
+
+    console.log(`Destination: ${destinationCity}, ${destinationCountry}`);
 
     let tripStartDate = document.getElementById('trip-start-date').value;
 
-    // Handle empty data picker
+    // Handle empty date picker
     if (tripStartDate === '') {
+        console.error("The date should be specified.")
         emptyDate.innerText = "Date is required";
         return
     }
@@ -307,23 +329,6 @@ handleSubmit = async () => {
     console.log(`Trip is ${daysAway} days away.`);
     projectData.daysAway = daysAway;
 
-
-
-    let destinationCountryCode = document.getElementById('destination-country').value;
-    let destinationCountry = mapping[destinationCountryCode];
-    let destinationCity = document.getElementById('destination-city').value;
-
-    // Handle empty city input 
-    if (destinationCity === '') {
-        emptyCitiInput.innerText = "The city of destination is required";
-        return
-    }
-
-    projectData.city = destinationCity;
-    projectData.country = destinationCountry;
-
-    console.log(`Destination: ${destinationCity}, ${destinationCountry}`);
-
     // Geonames API call
     const geonamesQuery = await fetch('http://localhost:8081/geonames', {
         method: 'POST',
@@ -332,11 +337,19 @@ handleSubmit = async () => {
             'Content-Type': 'application/json'
         }
     })
-    const query = await geonamesQuery.json();
-    projectData.latitude = query.postalCodes[0].lat
-    projectData.longitude = query.postalCodes[0].lng
-    console.log(`Latitude: ${projectData.latitude}`);
-    console.log(`Longitude: ${projectData.longitude}`);
+    try {
+        const query = await geonamesQuery.json();
+        projectData.latitude = query.postalCodes[0].lat
+        projectData.longitude = query.postalCodes[0].lng
+        console.log(`Latitude: ${projectData.latitude}`);
+        console.log(`Longitude: ${projectData.longitude}`);
+    }
+
+    catch (error) {
+        console.error("Geonames API returns no response.")
+        noResponseFromAPI.innerText = "Your request cannot be processed.\nPlease check city spelling and make sure you're choosing the right country.";
+        return
+    }
 
     // Weatherbit API call
     const weatherbitQuery = await fetch('http://localhost:8081/weatherbit', {
@@ -347,6 +360,7 @@ handleSubmit = async () => {
         }
     })
     const weather = await weatherbitQuery.json();
+
 
     projectData.weatherIsAvailable = false;
     projectData.maxTemp = weather.data[0].max_temp;
@@ -395,6 +409,8 @@ handleSubmit = async () => {
 
 
 updateUI = (projectData) => {
+
+    tripInfoHeader.innerText = "Your Trip Info";
 
     if (projectData.imageIsAvailable) {
         defaultImage.src = projectData.imageURL;
