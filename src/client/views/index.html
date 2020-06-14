@@ -29,7 +29,7 @@
                     <label class="bold">Destination City:</label>
                     <input id="destination-city" type="text" name="input"
                         placeholder="Enter the city of destination...">
-                    <div id="emptyCityInput" class="error-message"></div>
+                    <div id="empty-city-input" class="error-message"></div>
                     <label class="bold">Destination Country:</label>
                     <select id="destination-country" class='select-css'></select>
                 </div>
@@ -37,12 +37,13 @@
                 <div id="start-date">
                     <label class="bold">Start date:</label>
                     <input id="trip-start-date" type="date">
-                    <div id="emptyDatePicker" class="error-message"></div>
+                    <div id="empty-date" class="error-message"></div>
                 </div>
                 <button id="plan-trip" class="bold" type="submit"> Plan Your Trip </button>
             </form>
             <div id="trip-data">
-                <h2>Trip Info</h2>
+                <div id="no-response-from-api"></div>
+                <h2 id="trip-info-header"></h2>
                 <div id="days-before-trip"></div>
                 <div id="typical-weather"></div>
                 <div id="min-temperature"></div>
