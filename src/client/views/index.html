@@ -13,30 +13,33 @@
             Travel Planner
         </div>
 
-
         <div class="image">
-            <img id="pixabay-image" src="src/client/img/cinque-terre.jpg">
+            <img id="default-image">
             <div id="pixabay-logo">
-                <a href="https://pixabay.com/">
+                <a href="https://pixabay.com/" id="abc">
                     <img id="logo-image" src="https://pixabay.com/static/img/public/leaderboard_b.png" alt="Pixabay">
                 </a>
             </div>
+            <div id="image-not-found"></div>
         </div>
 
         <div class="trip-info">
             <form>
                 <div id="define-destination">
-                    <label>Destination City:</label>
+                    <label class="bold">Destination City:</label>
                     <input id="destination-city" type="text" name="input"
                         placeholder="Enter the city of destination...">
-                    <label>Destination Country:</label>
+                    <div id="emptyCityInput" class="error-message"></div>
+                    <label class="bold">Destination Country:</label>
                     <select id="destination-country" class='select-css'></select>
                 </div>
+
                 <div id="start-date">
-                    <label>Start date:</label>
+                    <label class="bold">Start date:</label>
                     <input id="trip-start-date" type="date">
+                    <div id="emptyDatePicker" class="error-message"></div>
                 </div>
-                <button id="plan-trip" type="submit"> Plan Your Trip </button>
+                <button id="plan-trip" class="bold" type="submit"> Plan Your Trip </button>
             </form>
             <div id="trip-data">
                 <h2>Trip Info</h2>
