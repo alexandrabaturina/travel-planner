@@ -268,10 +268,17 @@ const imageNotFound = document.getElementById('image-not-found');
 const defaultImage = document.getElementById('default-image');
 defaultImage.src = defaultImageSRC;
 
+// Disable past dates in date picker
+let today = new Date();
+let todayDay = ((today.getDate() < 10) ? "0" : "") + today.getDate();
+let todayMonth = ((today.getMonth() < 10) ? "0" : "") + (today.getMonth() + 1);
+let pickerStartDate = `${today.getFullYear()}-${todayMonth}-${todayDay}`
+let datePicker = document.getElementById('trip-start-date');
+datePicker.setAttribute('min', pickerStartDate);
+
 // Current date in ms since Jan 1, 1970
 let currentDate = Date.now();
 console.log(`Today's date in ms (since Jan 1, 1970): ${currentDate}`);
-
 
 
 handleSubmit = async () => {
