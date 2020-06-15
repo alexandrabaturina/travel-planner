@@ -289,29 +289,24 @@ let currentDate = Date.now();
 const handleSubmit = async () => {
     event.preventDefault();
 
+    tripInfoHeader.innerText = '';
+
+    // Reset error divs
     emptyDate.innerText = '';
     emptyCitiInput.innerText = '';
     imageNotFound.innerText = '';
     noResponseFromAPI.innerText = '';
-    tripInfoHeader.innerText = '';
 
     let destinationCity = document.getElementById('destination-city').value;
 
+    // Validate city name input
     if (!(Client.checkCityName(destinationCity))) {
         emptyCitiInput.innerText = 'The specified city name contais invalid characters';
         return
     }
 
-    // Handle empty city input 
-    if (destinationCity === '') {
-        console.error("The city of destination is not specified.")
-        emptyCitiInput.innerText = "The city of destination is required";
-        return
-    }
-
     let destinationCountryCode = document.getElementById('destination-country').value;
     let destinationCountry = mapping[destinationCountryCode];
-
 
     projectData.city = destinationCity;
     projectData.country = destinationCountry;
@@ -333,7 +328,7 @@ const handleSubmit = async () => {
     projectData.daysAway = daysAway;
 
     // Geonames API call
-    const geonamesQuery = await fetch('http://localhost:8081/geonames', {
+    const geonamesCall = await fetch('http://localhost:8081/geonames', {
         method: 'POST',
         body: JSON.stringify({ city: destinationCity, code: destinationCountryCode }),
         headers: {
@@ -341,9 +336,9 @@ const handleSubmit = async () => {
         }
     })
     try {
-        const query = await geonamesQuery.json();
-        projectData.latitude = query.postalCodes[0].lat
-        projectData.longitude = query.postalCodes[0].lng
+        const location = await geonamesCall.json();
+        projectData.latitude = location.postalCodes[0].lat
+        projectData.longitude = location.postalCodes[0].lng
         console.log(`Latitude: ${projectData.latitude}`);
         console.log(`Longitude: ${projectData.longitude}`);
     }
@@ -355,16 +350,14 @@ const handleSubmit = async () => {
     }
 
     // Weatherbit API call
-    const weatherbitQuery = await fetch('http://localhost:8081/weatherbit', {
+    const weatherbiCall = await fetch('http://localhost:8081/weatherbit', {
         method: 'POST',
         body: JSON.stringify({ lat: projectData.latitude, lon: projectData.longitude }),
         headers: {
             'Content-Type': 'application/json'
         }
     })
-    const weather = await weatherbitQuery.json();
-
-
+    const weather = await weatherbitCall.json();
     projectData.weatherIsAvailable = false;
     projectData.maxTemp = weather.data[0].max_temp;
     projectData.minTemp = weather.data[0].min_temp;
@@ -372,7 +365,6 @@ const handleSubmit = async () => {
     projectData.weatherIcon = weather.data[0].weather.icon;
 
     weather.data.forEach(item => {
-
         if (item.datetime === tripStartDate) {
             projectData.weatherIsAvailable = true;
             projectData.maxTemp = item.max_temp;
@@ -380,19 +372,18 @@ const handleSubmit = async () => {
             projectData.weatherDescription = item.weather.description;
             projectData.weatherIcon = item.weather.icon;
             return
-
         }
     })
 
     // Pixabay API call
-    const pixabayQuery = await fetch('http://localhost:8081/pixabay', {
+    const pixabayCall = await fetch('http://localhost:8081/pixabay', {
         method: 'POST',
         body: JSON.stringify({ city: destinationCity, country: destinationCountry }),
         headers: {
             'Content-Type': 'application/json'
         }
     })
-    const pixabayImage = await pixabayQuery.json();
+    const pixabayImage = await pixabayCall.json();
 
     if (pixabayImage.total !== 0) {
         projectData.imageIsAvailable = true;
@@ -400,12 +391,11 @@ const handleSubmit = async () => {
     } else {
         projectData.imageIsAvailable = false;
     }
-
     console.log(projectData);
     updateUI(projectData);
 }
 
-
+// Update UI dynamically
 const updateUI = (projectData) => {
 
     tripInfoHeader.innerText = "Your Trip Info";
