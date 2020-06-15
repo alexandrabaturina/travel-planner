@@ -21,3 +21,22 @@ Based on the city and country of destination and trip start date, **Travel Plann
 * [Geonames](http://www.geonames.org/export/web-services.html)
 * [Weatherbit](https://www.weatherbit.io/api/weather-forecast-16-day)
 * [Pixabay](https://pixabay.com/api/docs/)
+## Getting Started
+### Prerequisites
+1. Download Node.js from [here](https://nodejs.org/en/).
+2. Clone this repo.
+3. ```cd``` into project directory.
+4. Install project dependencies.
+```sh
+npm install
+```
+5. Get [Geonames](http://www.geonames.org/export/web-services.html) username.
+6. Get [Weatherbit](https://www.weatherbit.iohttps://pixabay.com/api/docs//account/create) API key.
+7. Get [Pixabay](https://pixabay.com/api/docs/) API key.
+8. Create ```.env``` file in the root of the project.
+9. In your ```env``` file, specify the credentials you got at steps 5–7.
+```
+PIXABAY_API_KEY = <your-pixabay-api-key>
+WEATHERBIT_API_KEY = <your-weatherbit-api-key>
+GEONAMES_USERNAME = <your-geonames-username>
+```
