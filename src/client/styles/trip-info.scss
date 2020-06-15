@@ -2,6 +2,7 @@ $font-size: 1.1em;
 $font: Arial;
 $error-message: #ee192d;
 
+
 .trip-info {
     grid-area: info;
     font-size: $font-size;
@@ -10,18 +11,33 @@ $error-message: #ee192d;
 
 #no-response-from-api {
     color: $error-message;
+    padding-left: 10px;
     font-weight: 600;
     line-height: 1.3em;
 }
+
+
 #trip-data > div {
     padding-top: 20px;
 }
 
+.trip-data-style {
+    background-color: #fdd03b;
+    border-radius: 5px;
+    font-weight: 500;
+    justify-self: center;
+    width: 80%;
+    margin-left: 10%;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 #trip-data h2 {
-    font-size: 2em;
-    font-weight: 800;
+    font-size: 1.5em;
+    font-weight: 700;
     text-align: center;
-    padding-top: 20px;
+
 }
 
 #weather-forecast {

@@ -2,6 +2,7 @@ $font-size: 1.1em;
 $font: Arial;
 $error-message: #ee192d;
 
+/* mobile */
 .bold {
     font-weight: 600;
 }
@@ -9,6 +10,7 @@ $error-message: #ee192d;
 .error-message {
     color: $error-message;
     font-weight: 600;
+    padding-left: 10px;
 }
 
 .trip-info form {
@@ -31,6 +33,17 @@ $error-message: #ee192d;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-top: 20px;
+}
+
+#define-destination input, select,
+#plan-trip {
+    align-self: center;
+}
+
+#define-destination label,
+#start-date label {
+    padding-left: 10px;
 }
 
 #start-date,
@@ -70,5 +83,3 @@ $error-message: #ee192d;
     color: #fbfcfd;
     border: none;
 }
-
-
