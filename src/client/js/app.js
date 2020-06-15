@@ -271,6 +271,7 @@ const emptyCitiInput = document.getElementById('empty-city-input');
 const emptyDate = document.getElementById('empty-date');
 const noResponseFromAPI = document.getElementById('no-response-from-api');
 const tripInfoHeader = document.getElementById('trip-info-header');
+const tripData = document.getElementById('trip-data')
 
 defaultImage.src = defaultImageSRC;
 
@@ -410,7 +411,7 @@ const updateUI = (projectData) => {
         imageNotFound.innerText = `Sorry, there is no picture of ${projectData.city}, ${projectData.country} in Pixabay library.`
         defaultImage.src = defaultImageSRC;
     }
-
+    tripData.classList.add('trip-data-style');
     daysBeforeTrip.innerText = `Your trip to ${projectData.city}, ${projectData.country} is ${projectData.daysAway} days away.`
     typicalWeather.innerText = (projectData.weatherIsAvailable ? 'Typical weather for then is:' :
         'The forecast for your date is not available. The weather for today is: ');
