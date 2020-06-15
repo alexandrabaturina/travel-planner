@@ -1,3 +1,6 @@
+// Default image
+import defaultImageSRC from '../img/pass.svg';
+
 const mapping = {
     "AF": "Afghanistan",
     "AX": "Aland Islands",
@@ -246,14 +249,12 @@ const mapping = {
     "ZW": "Zimbabwe"
 }
 
-// Default image
-const defaultImageSRC = 'src/client/img/pass.svg';
 
 // Primary object to store data
 const projectData = {};
 
 const selectCountry = document.getElementById('destination-country');
-for (code in mapping) {
+for (let code in mapping) {
     selectCountry.options[selectCountry.options.length] = new Option(mapping[code], code);
 }
 
@@ -284,7 +285,7 @@ datePicker.setAttribute('min', pickerStartDate);
 // Current date in ms since Jan 1, 1970
 let currentDate = Date.now();
 
-handleSubmit = async () => {
+const handleSubmit = async () => {
     event.preventDefault();
 
     emptyDate.innerText = '';
@@ -321,7 +322,7 @@ handleSubmit = async () => {
     }
 
     let [year, month, day] = tripStartDate.split('-');
-    startDate = new Date(year, month - 1, day);
+    let startDate = new Date(year, month - 1, day);
     let daysAway = Math.round((startDate.getTime() - currentDate) / (1000 * 3600 * 24));
     projectData.daysAway = daysAway;
 
@@ -399,7 +400,7 @@ handleSubmit = async () => {
 }
 
 
-updateUI = (projectData) => {
+const updateUI = (projectData) => {
 
     tripInfoHeader.innerText = "Your Trip Info";
 
@@ -423,9 +424,6 @@ updateUI = (projectData) => {
 }
 
 const submitRequest = document.getElementById('plan-trip');
-if (submitRequest) {
-    submitRequest.addEventListener('click', event => {
-        handleSubmit(event);
-    })
-}
-
+const evLisSubmit = submitRequest.addEventListener('click', event => {
+    handleSubmit(event);
+})
