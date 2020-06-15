@@ -42,10 +42,8 @@ module.exports = app.listen(PORT, () => {
 app.post('/geonames', function (req, res) {
     const placename = req.body.city;
     const country = req.body.code;
-    console.log(placename);
     const geonamesQuery = `?placename=${placename}&country=${country}&maxRows=1&username=${GEONAMES_USERNAME}`;
     const geonamesAPI = `${BASE_URL_GEONAMES}${geonamesQuery}`;
-    console.log(geonamesAPI)
 
     http.get(geonamesAPI, (response) => {
         let data = '';
@@ -67,7 +65,6 @@ app.post('/weatherbit', function (req, res) {
     const lon = req.body.lon;
     const weatherbitQuery = `?lat=${lat}&lon=${lon}&key=${WEATHERBIT_KEY}`;
     const weatherbitAPI = `${BASE_URL_WEATHERBIT}${weatherbitQuery}`;
-    console.log(weatherbitAPI);
 
     http.get(weatherbitAPI, (response) => {
         let data = '';
@@ -89,7 +86,6 @@ app.post('/pixabay', function (req, res) {
     const country = req.body.country;
     const pixabayQuery = `&q=${city}+${country}&image_type=photo&per_page=3&orientation=horizontal`;
     const pixabayAPI = `${BASE_URL_PIXABAY}${pixabayQuery}`;
-    console.log(pixabayAPI);
 
     https.get(pixabayAPI, (response) => {
         let data = '';
