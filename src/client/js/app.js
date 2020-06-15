@@ -427,3 +427,6 @@ const submitRequest = document.getElementById('plan-trip');
 const evLisSubmit = submitRequest.addEventListener('click', event => {
     handleSubmit(event);
 })
+
+export { handleSubmit }
+export { evLisSubmit }
