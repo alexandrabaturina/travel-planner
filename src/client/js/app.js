@@ -283,8 +283,6 @@ datePicker.setAttribute('min', pickerStartDate);
 
 // Current date in ms since Jan 1, 1970
 let currentDate = Date.now();
-console.log(`Today's date in ms (since Jan 1, 1970): ${currentDate}`);
-
 
 handleSubmit = async () => {
     event.preventDefault();
@@ -321,12 +319,10 @@ handleSubmit = async () => {
         emptyDate.innerText = "Date is required";
         return
     }
-    console.log(`Trip start date: ${tripStartDate}`);
+
     let [year, month, day] = tripStartDate.split('-');
     startDate = new Date(year, month - 1, day);
-    console.log(startDate);
     let daysAway = Math.round((startDate.getTime() - currentDate) / (1000 * 3600 * 24));
-    console.log(`Trip is ${daysAway} days away.`);
     projectData.daysAway = daysAway;
 
     // Geonames API call
@@ -369,11 +365,8 @@ handleSubmit = async () => {
     projectData.weatherIcon = weather.data[0].weather.icon;
 
     weather.data.forEach(item => {
-        console.log(item);
-
 
         if (item.datetime === tripStartDate) {
-            console.log('Yes!');
             projectData.weatherIsAvailable = true;
             projectData.maxTemp = item.max_temp;
             projectData.minTemp = item.min_temp;
@@ -393,11 +386,9 @@ handleSubmit = async () => {
         }
     })
     const pixabayImage = await pixabayQuery.json();
-    console.log(pixabayImage);
 
     if (pixabayImage.total !== 0) {
         projectData.imageIsAvailable = true;
-        console.log(`Image URL: ${pixabayImage.hits[0].webformatURL}`);
         projectData.imageURL = pixabayImage.hits[0].webformatURL;
     } else {
         projectData.imageIsAvailable = false;
