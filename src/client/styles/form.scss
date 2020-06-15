@@ -11,16 +11,10 @@ $error-message: #ee192d;
     font-weight: 600;
 }
 
-.trip-info {
-    border: 1px solid black;
-    padding-top: 20px;
-    padding-left: 20px;
-    font-size: $font-size;
-}
-
 .trip-info form {
     display: flex;
     flex-direction: column;
+    color: #2a5d68;
 }
 
 #destination-city,
@@ -63,6 +57,8 @@ $error-message: #ee192d;
 }
 
 #plan-trip {
+    background-color: #7dbbb9;
+    border: 1px black solid;
     margin-top: 20px;
     font-style: $font;
     height: 25px;
@@ -70,8 +66,8 @@ $error-message: #ee192d;
 
 
 #plan-trip:hover {
-    background-color: #765b58;
-    color: white;
+    background-color: #2a5d68;
+    color: #fbfcfd;
     border: none;
 }
 

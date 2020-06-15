@@ -1,9 +1,17 @@
-$header-bgcolor: #765b58;
-$heaher-fontcolor: #e6d6c5;
+// $header-bgcolor: #765b58;
+// $header-fontcolor: #e6d6c5;
+
+// $header-fontcolor:  #c7d3bf;
+// $header-bgcolor: #314448 ;
+
+$header-bgcolor: #2a5d68;
+$header-fontcolor: #fbfcfd;
 
 .header {
     grid-area: hd;
     font-size: 3em;
+    font-weight: 800;
     background-color: $header-bgcolor;
-    color: $heaher-fontcolor;
-}
+    color: $header-fontcolor;
+    padding: 10px;
+  }
