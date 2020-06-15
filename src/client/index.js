@@ -1,5 +1,6 @@
 import { handleSubmit } from './js/app'
 import { evLisSubmit } from './js/app'
+import { checkCityName } from './js/nameChecker'
 import './styles/image.scss'
 import './styles/main.scss'
 import './styles/trip-info.scss'
@@ -11,5 +12,6 @@ import './img/pass.svg'
 
 export {
     handleSubmit,
-    evLisSubmit
+    evLisSubmit,
+    checkCityName
 }

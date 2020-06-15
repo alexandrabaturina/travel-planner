@@ -297,6 +297,11 @@ const handleSubmit = async () => {
 
     let destinationCity = document.getElementById('destination-city').value;
 
+    if (!(Client.checkCityName(destinationCity))) {
+        emptyCitiInput.innerText = 'The specified city name contais invalid characters';
+        return
+    }
+
     // Handle empty city input 
     if (destinationCity === '') {
         console.error("The city of destination is not specified.")
