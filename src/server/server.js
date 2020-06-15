@@ -34,7 +34,7 @@ app.use(cors());
 app.use(express.static('dist'))
 
 // Listen for connections
-app.listen(PORT, () => {
+module.exports = app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
 
@@ -103,6 +103,10 @@ app.post('/pixabay', function (req, res) {
             res.send(JSON.parse(data))
         });
     })
+})
+
+app.get('/test', async (req, res) => {
+    res.json({ message: 'test passed!' })
 })
 
 app.get('/', function (req, res) {
