@@ -12,7 +12,7 @@ const BASE_URL_GEONAMES = 'http://api.geonames.org/postalCodeSearchJSON',
     BASE_URL_WEATHERBIT = 'http://api.weatherbit.io/v2.0/forecast/daily',
     BASE_URL_PIXABAY = `https://pixabay.com/api/?key=${PIXABAY_KEY}`;
 
-
+// Configure express
 const path = require('path');
 const express = require('express');
 const app = express();
@@ -22,7 +22,7 @@ const PORT = 8081;
 const http = require('http');
 const https = require('https');
 
-// Configure express
+// Configure body parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -38,19 +38,6 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
 
-const receiveData = () => {
-    let data = '';
-    // Data chunk received
-    response.on('data', (chunk) => {
-        data += chunk;
-    });
-
-    // The whole response received
-    response.on('end', () => {
-        res.send(JSON.parse(data))
-    });
-}
-
 // Geonames API call
 app.post('/geonames', function (req, res) {
     const placename = req.body.city;
@@ -61,7 +48,16 @@ app.post('/geonames', function (req, res) {
     console.log(geonamesAPI)
 
     http.get(geonamesAPI, (response) => {
-        receiveData(response);
+        let data = '';
+        // Data chunk received
+        response.on('data', (chunk) => {
+            data += chunk;
+        });
+
+        // The whole response received
+        response.on('end', () => {
+            res.send(JSON.parse(data))
+        });
     })
 })
 
@@ -74,7 +70,16 @@ app.post('/weatherbit', function (req, res) {
     console.log(weatherbitAPI);
 
     http.get(weatherbitAPI, (response) => {
-        receiveData(response);
+        let data = '';
+        // Data chunk received
+        response.on('data', (chunk) => {
+            data += chunk;
+        });
+
+        // The whole response received
+        response.on('end', () => {
+            res.send(JSON.parse(data))
+        });
     })
 })
 
@@ -87,7 +92,16 @@ app.post('/pixabay', function (req, res) {
     console.log(pixabayAPI);
 
     https.get(pixabayAPI, (response) => {
-        receiveData(response);
+        let data = '';
+        // Data chunk received
+        response.on('data', (chunk) => {
+            data += chunk;
+        });
+
+        // The whole response received
+        response.on('end', () => {
+            res.send(JSON.parse(data))
+        });
     })
 })
 
