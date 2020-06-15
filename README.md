@@ -40,3 +40,28 @@ PIXABAY_API_KEY = <your-pixabay-api-key>
 WEATHERBIT_API_KEY = <your-weatherbit-api-key>
 GEONAMES_USERNAME = <your-geonames-username>
 ```
+### Running
+#### Test mode
+To run the app in test mode, use the following command.
+```
+nmp run test
+```
+#### Development mode
+To run the app in development mode, use the following command.
+```
+npm run build-dev
+```
+#### Production mode
+To run the app in production mode, follow the steps below.
+1. Build the ```dist``` folder.
+```
+npm run build-prod
+```
+2. Start the server.
+```
+npm run start
+```
+3. Open ```localhost:8081``` in your browser.
+### Authors
+Alexandra Baturina
+
