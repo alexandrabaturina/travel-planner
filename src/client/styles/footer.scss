@@ -1,11 +1,6 @@
-$footer-bgcolor: #2a5d68;
-$footer-fontcolor: #fbfcfd;
-
 .footer {
     grid-area: ft;
-    background-color: $footer-bgcolor;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $footer-fontcolor;
 }
