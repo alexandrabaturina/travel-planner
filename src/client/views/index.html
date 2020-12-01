@@ -15,22 +15,16 @@
 
         <div class="image">
             <img id="default-image">
-            <div id="pixabay-logo">
-                <a href="https://pixabay.com/" id="abc">
-                    <img id="logo-image" src="https://pixabay.com/static/img/public/leaderboard_b.png" alt="Pixabay">
-                </a>
-            </div>
             <div id="image-not-found"></div>
         </div>
 
         <div class="trip-info">
             <form>
                 <div id="define-destination">
-                    <label class="bold">Destination City:</label>
                     <input id="destination-city" type="text" name="input"
                         placeholder="Enter the city of destination...">
                     <div id="empty-city-input" class="error-message"></div>
-                    <label class="bold">Destination Country:</label>
+                    <label class="bold">Choose destination country:</label>
                     <select id="destination-country" class='select-css'></select>
                 </div>
 
@@ -39,9 +33,9 @@
                     <input id="trip-start-date" type="date">
                     <div id="empty-date" class="error-message"></div>
                 </div>
-                <button id="plan-trip" class="bold" type="submit"> Plan Your Trip </button>
+                <button id="plan-trip" class="bold" type="submit"> PLAN YOUR TRIP </button>
             </form>
-            <div id="trip-data">
+            <div id="trip-data" class="hidden">
                 <div id="no-response-from-api"></div>
                 <h2 id="trip-info-header"></h2>
                 <div id="days-before-trip"></div>
@@ -56,7 +50,11 @@
         </div>
 
         <footer class="footer">
-            <p>&copy; 2020</p>
+            <div id="pixabay-logo">
+                <a href="https://pixabay.com/" id="abc">
+                    <img id="logo-image" src="src/client/img/pixabay_logo.svg" alt="Pixabay">
+                </a>
+            </div>
         </footer>
     </div>
 

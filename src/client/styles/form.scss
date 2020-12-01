@@ -41,9 +41,17 @@ $error-message: #ee192d;
     align-self: center;
 }
 
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
 #define-destination label,
-#start-date label {
-    padding-left: 10px;
+#start-date {
+    align-self: center;
 }
 
 #start-date,
@@ -60,8 +68,8 @@ $error-message: #ee192d;
 
 .select-css:hover,
 .select-css:focus {
-  color: black;
-  background-color: white;
+    color: black;
+    background-color: white;
 }
 
 #trip-start-date {
@@ -70,16 +78,9 @@ $error-message: #ee192d;
 }
 
 #plan-trip {
-    background-color: #7dbbb9;
+    // background-color: #7dbbb9;
     border: 1px black solid;
     margin-top: 20px;
     font-style: $font;
-    height: 25px;
-}
-
-
-#plan-trip:hover {
-    background-color: #2a5d68;
-    color: #fbfcfd;
-    border: none;
+    height: 30px;
 }

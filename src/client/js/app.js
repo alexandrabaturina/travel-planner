@@ -286,7 +286,7 @@ datePicker.setAttribute('min', pickerStartDate);
 // Current date in ms since Jan 1, 1970
 let currentDate = Date.now();
 
-const handleSubmit = async () => {
+const handleSubmit = async (event) => {
     event.preventDefault();
 
     tripInfoHeader.innerText = '';
@@ -350,7 +350,7 @@ const handleSubmit = async () => {
     }
 
     // Weatherbit API call
-    const weatherbiCall = await fetch('http://localhost:8081/weatherbit', {
+    const weatherbitCall = await fetch('http://localhost:8081/weatherbit', {
         method: 'POST',
         body: JSON.stringify({ lat: projectData.latitude, lon: projectData.longitude }),
         headers: {
@@ -397,6 +397,8 @@ const handleSubmit = async () => {
 
 // Update UI dynamically
 const updateUI = (projectData) => {
+
+    tripData.classList.add('visible');
 
     tripInfoHeader.innerText = "Your Trip Info";
 
