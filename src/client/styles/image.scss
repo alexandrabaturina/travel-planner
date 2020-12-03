@@ -9,30 +9,30 @@ $error-message: #e2000c;
     justify-content: flex-start;
 }
 
-#default-image {
+.default-image {
     width: 300px;
 }
 
-#default-image {
+.default-image {
     border-radius: 10px;
 }
 
-#logo-image {
+.logo-image {
     padding-top: 5px;
     width: 100%;
 }
 
-#image-not-found {
+.image-not-found {
     padding-top: 20px;
     color: $error-message;
 }
 
-#pixabay-logo {
+.pixabay-logo {
     width: 100px;
     margin-bottom: 15px;
 }
 
-#pixabay-logo a:hover {
+.pixabay-logo a:hover {
     opacity: 0.8;
 } 
 
@@ -42,7 +42,7 @@ $error-message: #e2000c;
         padding-top: 30px;
     }
 
-    #pixabay-logo {
+    .pixabay-logo {
         width: 150px;
     }
 }
@@ -54,16 +54,16 @@ $error-message: #e2000c;
         padding-top: 50px;
     }
 
-    #default-image,
-    #pixabay-logo {
+    .default-image,
+    .pixabay-logo {
         width: 170px;
     }
 }
 
 /* extra large desktops */
 @media (min-width: 991px) {
-    #default-image,
-    #pixabay-logo {
+    .default-image,
+    .pixabay-logo {
         width: 200px;
     }
 }

@@ -14,8 +14,8 @@
         </div>
 
         <div class="image">
-            <img id="default-image">
-            <div id="image-not-found"></div>
+            <img class="default-image">
+            <div class="image-not-found"></div>
         </div>
 
         <div class="trip-info">
@@ -23,36 +23,36 @@
             <label>Destination city:</label>
             <input id="destination-city" type="text" name="input" placeholder="Enter the city of destination...">
 
-            <div id="empty-city-input" class="error-message hidden"></div>
+            <div class="empty-city-input error-message hidden"></div>
 
             <label>Destination country:</label>
             <select id="destination-country" class='select-css'></select>
 
             <label>Start date:</label>
             <input id="trip-start-date" type="date">
-            <div id="empty-date" class="error-message"></div>
+            <div class="empty-date error-message hidden"></div>
 
             <button id="plan-trip" class="bold" type="submit"> PLAN YOUR TRIP </button>
 
-            <div id="trip-data" class="hidden">
-                <div id="no-response-from-api" class="hidden"></div>
-                <h2 id="trip-info-header"></h2>
-                <div id="days-before-trip"></div>
-                <div id="typical-weather"></div>
-                <div id="weather-forecast">
-                    <img id="weather-icon">
-                    <div id="weather-description"></div>
+            <div class="trip-data hidden">
+                <div class="no-response-from-api hidden"></div>
+                <h2 class="trip-info-header"></h2>
+                <div class="days-before-trip"></div>
+                <div class="typical-weather"></div>
+                <div class="weather-forecast">
+                    <img class="weather-icon">
+                    <div class="weather-description"></div>
                 </div>
-                <div id="min-temperature"></div>
-                <div id="max-temperature"></div>
-
+                <div class="min-temperature"></div>
+                <div class="max-temperature"></div>
             </div>
+
         </div>
 
         <footer class="footer">
-            <div id="pixabay-logo">
+            <div class="pixabay-logo">
                 <a href="https://pixabay.com/" id="abc">
-                    <img id="logo-image" src="src/client/img/pixabay_logo.svg" alt="Pixabay">
+                    <img class="logo-image" src="src/client/img/pixabay_logo.svg" alt="Pixabay">
                 </a>
             </div>
         </footer>

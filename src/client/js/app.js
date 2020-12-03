@@ -259,19 +259,20 @@ for (let code in mapping) {
 }
 
 // UI elements
-const daysBeforeTrip = document.getElementById('days-before-trip');
-const typicalWeather = document.getElementById('typical-weather');
-const minTemperature = document.getElementById('min-temperature');
-const maxTemperature = document.getElementById('max-temperature');
-const weatherDescription = document.getElementById('weather-description');
-const weatherIcon = document.getElementById('weather-icon');
-const imageNotFound = document.getElementById('image-not-found');
-const defaultImage = document.getElementById('default-image');
-const emptyCitiInput = document.getElementById('empty-city-input');
-const emptyDate = document.getElementById('empty-date');
-const noResponseFromAPI = document.getElementById('no-response-from-api');
-const tripInfoHeader = document.getElementById('trip-info-header');
-const tripData = document.getElementById('trip-data')
+const daysBeforeTrip = document.querySelector('.days-before-trip');
+const typicalWeather = document.querySelector('.typical-weather');
+const minTemperature = document.querySelector('.min-temperature');
+const maxTemperature = document.querySelector('.max-temperature');
+const weatherDescription = document.querySelector('.weather-description');
+const weatherIcon = document.querySelector('.weather-icon');
+const imageNotFound = document.querySelector('.image-not-found');
+const defaultImage = document.querySelector('.default-image');
+const emptyCityInput = document.querySelector('.empty-city-input');
+const emptyDate = document.querySelector('.empty-date');
+const noResponseFromAPI = document.querySelector('.no-response-from-api');
+const tripInfoHeader = document.querySelector('.trip-info-header');
+const tripData = document.querySelector('.trip-data');
+
 
 defaultImage.src = defaultImageSRC;
 
@@ -293,7 +294,7 @@ const handleSubmit = async (event) => {
 
     // Reset error divs
     emptyDate.innerText = '';
-    emptyCitiInput.innerText = '';
+    emptyCityInput.innerText = '';
     imageNotFound.innerText = '';
     noResponseFromAPI.innerText = '';
 
@@ -301,7 +302,8 @@ const handleSubmit = async (event) => {
 
     // Validate city name input
     if (!(Client.checkCityName(destinationCity))) {
-        emptyCitiInput.innerText = 'The specified city name contais invalid characters';
+        emptyCityInput.classList.add('visible');
+        emptyCityInput.innerText = 'The specified city name contais invalid characters';
         return
     }
 
@@ -318,6 +320,10 @@ const handleSubmit = async (event) => {
     // Handle empty date picker
     if (tripStartDate === '') {
         console.error("The date should be specified.")
+        emptyDate.classList.add('visible');
+
+        // ddd.classList.add('input-error');
+
         emptyDate.innerText = "Date is required";
         return
     }
@@ -345,7 +351,12 @@ const handleSubmit = async (event) => {
 
     catch (error) {
         console.error("Geonames API returns no response.")
-        noResponseFromAPI.innerText = "Your request cannot be processed.\nPlease check city spelling and make sure you're choosing the right country.";
+        noResponseFromAPI.classList.add('visible');
+        noResponseFromAPI.innerText = `
+        Your request cannot be processed.
+        Please check city spelling and make sure you're choosing the right country.
+        `;
+        noResponseFromAPI.classList.add('hidden');
         return
     }
 
@@ -400,20 +411,23 @@ const updateUI = (projectData) => {
 
     tripData.classList.add('visible');
 
-    tripInfoHeader.innerText = "Your Trip Info";
+    tripInfoHeader.innerText = "YOUR TRIP INFO";
 
     if (projectData.imageIsAvailable) {
         defaultImage.src = projectData.imageURL;
     } else {
-        imageNotFound.innerText = `Sorry, there is no picture of ${projectData.city}, ${projectData.country} in Pixabay library.`
+        imageNotFound.innerText =
+            `Sorry, there is no picture of 
+            ${projectData.city}, ${projectData.country} 
+            in Pixabay library.`;
         defaultImage.src = defaultImageSRC;
     }
     tripData.classList.add('trip-data-style');
     daysBeforeTrip.innerText = `Your trip to ${projectData.city}, ${projectData.country} is ${projectData.daysAway} days away.`
     typicalWeather.innerText = (projectData.weatherIsAvailable ? 'Typical weather for then is:' :
         'The forecast for your date is not available. The weather for today is: ');
-    minTemperature.innerText = `Min temperature: ${projectData.minTemp} C`;
-    maxTemperature.innerText = `Max temperature: ${projectData.maxTemp} C`;
+    minTemperature.innerText = `Min temperature: ${projectData.minTemp} °C`;
+    maxTemperature.innerText = `Max temperature: ${projectData.maxTemp} °C`;
     weatherDescription.innerText = `${projectData.weatherDescription}`
     if (projectData.weatherIcon) {
         weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${projectData.weatherIcon}.png`

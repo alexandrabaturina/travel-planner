@@ -47,8 +47,13 @@ $ligth-color: #faf5f2;
     background-color: $dark-color;
 }
 
-// .error-message {
-//     color: $error-message;
-//     font-weight: 600;
-//     padding-left: 10px;
-// }
+.error-message {
+    color: $error-message;
+    font-weight: 600;
+    text-align: justify;
+    padding: 5px 5% 5px 5%;
+}
+
+.input-error {
+    border: 1px $error-message solid;
+}

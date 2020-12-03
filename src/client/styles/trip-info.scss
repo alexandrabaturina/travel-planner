@@ -8,14 +8,14 @@ $error-message: #e2000c;
     font-style: $font;
 }
 
-#no-response-from-api {
+.no-response-from-api {
     color: $error-message;
     padding-left: 10px;
     font-weight: 600;
     line-height: 1.3em;
 }
 
-#trip-data > div {
+.trip-data > div {
     padding-top: 20px;
 }
 
@@ -31,7 +31,7 @@ $error-message: #e2000c;
     margin-bottom: 10px;
 }
 
-#trip-data h2 {
+.trip-data h2 {
     padding-top: 5px;
     font-size: 1.5em;
     font-weight: 700;
@@ -39,7 +39,7 @@ $error-message: #e2000c;
 
 }
 
-#weather-forecast {
+.weather-forecast {
     align-items: center;
     display: flex;
 }
