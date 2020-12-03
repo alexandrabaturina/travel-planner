@@ -1,12 +1,9 @@
-$header-bgcolor: #2a5d68;
-$header-fontcolor: #fbfcfd;
+$header-fontcolor: #292838;
 
 /* mobile */
 .header {
     grid-area: hd;
-    background-color: $header-bgcolor;
     color: $header-fontcolor;
-    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,11 +12,4 @@ $header-fontcolor: #fbfcfd;
 .header h1 {
   font-size: 3em;
   font-weight: 800;
-}
-
-/* large desktops */
-@media (min-width: 769px) {
-  .header {
-    height: 100px;
-  }
 }
