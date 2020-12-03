@@ -4,41 +4,6 @@ $error-message: #e2000c;
 $dark-color: #292838;
 $ligth-color: #faf5f2;
 
-.error-message {
-    color: $error-message;
-    font-weight: 600;
-    padding-left: 10px;
-}
-
-.trip-info form {
-    display: flex;
-    flex-direction: column;
-}
-
-#destination-city,
-#destination-country,
-#plan-trip {
-    width: 90%;
-}
-
-#destination-city {
-    height: 25px;
-}
-
-#start-date,
-#define-destination {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-top: 20px;
-}
-
-#define-destination input, select,
-#start-date input,
-#plan-trip {
-    align-self: center;
-}
-
 .hidden {
     display: none;
 }
@@ -47,47 +12,43 @@ $ligth-color: #faf5f2;
     display: block;
 }
 
-#define-destination label,
-#start-date {
-    font-weight: 500;
-    align-self: left;
+.trip-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.trip-info label {
+    font-weight: 600;
+    margin: 10px 0 10px 10px;
+}
+
+.trip-info input,
+.trip-info select {
+    width: 90%;
+    align-self: center;
+    font-family: $font;
+    height: 30px;
+    color: $dark-color;
     padding-left: 10px;
 }
 
-#start-date,
-#define-destination > * {
-    margin-top: 10px;
-}
-
-.select-css {
-    height: 25px;
-    border-radius: 0.5em;
-    line-height: 1.2;
-    color: $dark-color;
-}
-
-.select-css:hover,
-.select-css:focus {
-    color: $dark-color;
-    background-color: $ligth-color;
-}
-
-#trip-start-date {
-    font-size: $font-size;
-    font-style: $font;
-    width: 80%;
-}
-
-#plan-trip {
-    background-color: $ligth-color;
-    border: 2px $dark-color solid;
-    margin-top: 20px;
-    font-style: $font;
+.trip-info button {
+    align-self: center;
+    margin: 30px 0 10px 0;
     height: 30px;
+    width: 50%;
+    font-weight: 600;
+    border: 1px $dark-color solid;
 }
 
-#plan-trip:hover {
+.trip-info button:hover {
+    border: 1px $ligth-color solid;
     color: $ligth-color;
     background-color: $dark-color;
-    border: none;
 }
+
+// .error-message {
+//     color: $error-message;
+//     font-weight: 600;
+//     padding-left: 10px;
+// }

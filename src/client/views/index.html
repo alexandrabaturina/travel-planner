@@ -19,33 +19,33 @@
         </div>
 
         <div class="trip-info">
-            <form>
-                <div id="define-destination">
-                    <input id="destination-city" type="text" name="input"
-                        placeholder="Enter the city of destination...">
-                    <div id="empty-city-input" class="error-message"></div>
-                    <label class="bold">Choose destination country:</label>
-                    <select id="destination-country" class='select-css'></select>
-                </div>
 
-                <div id="start-date">
-                    <label class="bold">Start date:</label>
-                    <input id="trip-start-date" type="date">
-                    <div id="empty-date" class="error-message"></div>
-                </div>
-                <button id="plan-trip" class="bold" type="submit"> PLAN YOUR TRIP </button>
-            </form>
+            <label>Destination city:</label>
+            <input id="destination-city" type="text" name="input" placeholder="Enter the city of destination...">
+
+            <div id="empty-city-input" class="error-message hidden"></div>
+
+            <label>Destination country:</label>
+            <select id="destination-country" class='select-css'></select>
+
+            <label>Start date:</label>
+            <input id="trip-start-date" type="date">
+            <div id="empty-date" class="error-message"></div>
+
+            <button id="plan-trip" class="bold" type="submit"> PLAN YOUR TRIP </button>
+
             <div id="trip-data" class="hidden">
-                <div id="no-response-from-api"></div>
+                <div id="no-response-from-api" class="hidden"></div>
                 <h2 id="trip-info-header"></h2>
                 <div id="days-before-trip"></div>
                 <div id="typical-weather"></div>
-                <div id="min-temperature"></div>
-                <div id="max-temperature"></div>
                 <div id="weather-forecast">
                     <img id="weather-icon">
                     <div id="weather-description"></div>
                 </div>
+                <div id="min-temperature"></div>
+                <div id="max-temperature"></div>
+
             </div>
         </div>
 
