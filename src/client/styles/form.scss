@@ -4,14 +4,6 @@ $error-message: #e2000c;
 $dark-color: #292838;
 $ligth-color: #faf5f2;
 
-.hidden {
-    display: none;
-}
-
-.visible {
-    display: block;
-}
-
 .trip-info {
     display: flex;
     flex-direction: column;
@@ -54,6 +46,7 @@ $ligth-color: #faf5f2;
     padding: 5px 5% 5px 5%;
 }
 
-.input-error {
+.data-select-error,
+.data-select-error:focus {
     border: 1px $error-message solid;
 }

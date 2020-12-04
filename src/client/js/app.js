@@ -259,6 +259,9 @@ for (let code in mapping) {
 }
 
 // UI elements
+const destinationCity = document.querySelector('#destination-city');
+const destinationCountry = document.querySelector('#destination-country');
+const tripStartDate = document.querySelector('#trip-start-date');
 const daysBeforeTrip = document.querySelector('.days-before-trip');
 const typicalWeather = document.querySelector('.typical-weather');
 const minTemperature = document.querySelector('.min-temperature');
@@ -272,7 +275,6 @@ const emptyDate = document.querySelector('.empty-date');
 const noResponseFromAPI = document.querySelector('.no-response-from-api');
 const tripInfoHeader = document.querySelector('.trip-info-header');
 const tripData = document.querySelector('.trip-data');
-
 
 defaultImage.src = defaultImageSRC;
 
@@ -290,6 +292,9 @@ let currentDate = Date.now();
 const handleSubmit = async (event) => {
     event.preventDefault();
 
+    destinationCity.classList.remove('data-select-error');
+    tripStartDate.classList.remove('data-select-error');
+
     tripInfoHeader.innerText = '';
 
     // Reset error divs
@@ -298,37 +303,37 @@ const handleSubmit = async (event) => {
     imageNotFound.innerText = '';
     noResponseFromAPI.innerText = '';
 
-    let destinationCity = document.getElementById('destination-city').value;
+    const destinationCitySelected = destinationCity.value;
 
     // Validate city name input
-    if (!(Client.checkCityName(destinationCity))) {
+    if (!(Client.checkCityName(destinationCitySelected))) {
         emptyCityInput.classList.add('visible');
-        emptyCityInput.innerText = 'The specified city name contais invalid characters';
+        destinationCity.classList.add('data-select-error');
+        emptyCityInput.innerText = 'The specified city name contains invalid characters. Please try again.';
         return
     }
 
-    let destinationCountryCode = document.getElementById('destination-country').value;
-    let destinationCountry = mapping[destinationCountryCode];
+    const destinationCountryCode = destinationCountry.value;
+    const destinationCountrySelected = mapping[destinationCountryCode];
 
-    projectData.city = destinationCity;
-    projectData.country = destinationCountry;
+    projectData.city = destinationCitySelected;
+    projectData.country = destinationCountrySelected;
 
-    console.log(`Destination: ${destinationCity}, ${destinationCountry}`);
+    console.log(`Destination: ${destinationCitySelected}, ${destinationCountrySelected}`);
 
-    let tripStartDate = document.getElementById('trip-start-date').value;
+    const tripStartDateSelected = tripStartDate.value;
 
     // Handle empty date picker
-    if (tripStartDate === '') {
-        console.error("The date should be specified.")
+    if (tripStartDateSelected === '') {
+
+        console.error('The date should be specified.')
         emptyDate.classList.add('visible');
-
-        // ddd.classList.add('input-error');
-
-        emptyDate.innerText = "Date is required";
+        tripStartDate.classList.add('data-select-error');
+        emptyDate.innerText = 'Date is required';
         return
     }
 
-    let [year, month, day] = tripStartDate.split('-');
+    let [year, month, day] = tripStartDateSelected.split('-');
     let startDate = new Date(year, month - 1, day);
     let daysAway = Math.round((startDate.getTime() - currentDate) / (1000 * 3600 * 24));
     projectData.daysAway = daysAway;
@@ -336,7 +341,7 @@ const handleSubmit = async (event) => {
     // Geonames API call
     const geonamesCall = await fetch('http://localhost:8081/geonames', {
         method: 'POST',
-        body: JSON.stringify({ city: destinationCity, code: destinationCountryCode }),
+        body: JSON.stringify({ city: destinationCitySelected, code: destinationCountryCode }),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -350,15 +355,15 @@ const handleSubmit = async (event) => {
     }
 
     catch (error) {
-        console.error("Geonames API returns no response.")
+        console.error("Geonames API returns no response.");
         noResponseFromAPI.classList.add('visible');
-        noResponseFromAPI.innerText = `
-        Your request cannot be processed.
-        Please check city spelling and make sure you're choosing the right country.
-        `;
-        noResponseFromAPI.classList.add('hidden');
+        noResponseFromAPI.innerText =
+            `Your request cannot be processed.
+            Please check city spelling and make sure you're choosing the right country.
+            `;
         return
     }
+
 
     // Weatherbit API call
     const weatherbitCall = await fetch('http://localhost:8081/weatherbit', {
