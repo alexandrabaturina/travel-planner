@@ -249,7 +249,6 @@ const mapping = {
     "ZW": "Zimbabwe"
 }
 
-
 // Primary object to store data
 const projectData = {};
 
@@ -275,6 +274,7 @@ const emptyDate = document.querySelector('.empty-date');
 const noResponseFromAPI = document.querySelector('.no-response-from-api');
 const tripInfoHeader = document.querySelector('.trip-info-header');
 const tripData = document.querySelector('.trip-data');
+const figcaption = document.querySelector('.figcaption');
 
 defaultImage.src = defaultImageSRC;
 
@@ -325,7 +325,6 @@ const handleSubmit = async (event) => {
 
     // Handle empty date picker
     if (tripStartDateSelected === '') {
-
         console.error('The date should be specified.')
         emptyDate.classList.add('visible');
         tripStartDate.classList.add('data-select-error');
@@ -346,6 +345,7 @@ const handleSubmit = async (event) => {
             'Content-Type': 'application/json'
         }
     })
+
     try {
         const location = await geonamesCall.json();
         projectData.latitude = location.postalCodes[0].lat
@@ -363,7 +363,6 @@ const handleSubmit = async (event) => {
             `;
         return
     }
-
 
     // Weatherbit API call
     const weatherbitCall = await fetch('http://localhost:8081/weatherbit', {
@@ -394,7 +393,7 @@ const handleSubmit = async (event) => {
     // Pixabay API call
     const pixabayCall = await fetch('http://localhost:8081/pixabay', {
         method: 'POST',
-        body: JSON.stringify({ city: destinationCity, country: destinationCountry }),
+        body: JSON.stringify({ city: destinationCitySelected, country: destinationCountrySelected }),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -420,6 +419,7 @@ const updateUI = (projectData) => {
 
     if (projectData.imageIsAvailable) {
         defaultImage.src = projectData.imageURL;
+        figcaption.innerText = `${projectData.city}, ${projectData.country}`;
     } else {
         imageNotFound.innerText =
             `Sorry, there is no picture of 
@@ -427,12 +427,12 @@ const updateUI = (projectData) => {
             in Pixabay library.`;
         defaultImage.src = defaultImageSRC;
     }
-    tripData.classList.add('trip-data-style');
-    daysBeforeTrip.innerText = `Your trip to ${projectData.city}, ${projectData.country} is ${projectData.daysAway} days away.`
+    daysBeforeTrip.innerText =
+        `Your trip to ${projectData.city}, ${projectData.country} is ${projectData.daysAway} days away.`
     typicalWeather.innerText = (projectData.weatherIsAvailable ? 'Typical weather for then is:' :
         'The forecast for your date is not available. The weather for today is: ');
-    minTemperature.innerText = `Min temperature: ${projectData.minTemp} °C`;
-    maxTemperature.innerText = `Max temperature: ${projectData.maxTemp} °C`;
+    minTemperature.innerText = `Min temp: ${projectData.minTemp} °C`;
+    maxTemperature.innerText = `Max temp: ${projectData.maxTemp} °C`;
     weatherDescription.innerText = `${projectData.weatherDescription}`
     if (projectData.weatherIcon) {
         weatherIcon.src = `https://www.weatherbit.io/static/img/icons/${projectData.weatherIcon}.png`
