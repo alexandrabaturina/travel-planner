@@ -1,7 +1,7 @@
 $error-message: #e2000c;
 
 /* mobile */
-.image {
+.destination-image {
     grid-area: image;
     display: flex;
     flex-direction: column;
@@ -10,7 +10,7 @@ $error-message: #e2000c;
 }
 
 .default-image {
-    width: 300px;
+    width: 90%;
 }
 
 .default-image {
@@ -62,8 +62,11 @@ $error-message: #e2000c;
 
 /* extra large desktops */
 @media (min-width: 991px) {
-    .default-image,
     .pixabay-logo {
         width: 200px;
+    }
+
+    .default-image {
+        width: 500px;
     }
 }

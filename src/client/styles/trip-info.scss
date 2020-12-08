@@ -2,15 +2,19 @@ $font-size: 1.1em;
 $font: Arial;
 $error-message: #e2000c;
 
-.trip-info {
-    grid-area: info;
+.bold {
+    font-weight: 600;
+}
+
+.trip-planning-form {
+    grid-area: form;
     font-size: $font-size;
     font-style: $font;
 }
 
 .no-response-from-api {
     color: $error-message;
-    padding-left: 10px;
+    padding: 5px 5% 0 5%;
     font-weight: 600;
     line-height: 1.3em;
 }
@@ -19,27 +23,30 @@ $error-message: #e2000c;
     padding-top: 20px;
 }
 
-.trip-data-style {
+.trip-data {
+    grid-area: data;
     background-color: #ffca03;
     border-radius: 5px;
     font-weight: 500;
-    justify-self: center;
     width: 90%;
-    margin-left: 10%;
-    padding: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 5px 5% 20px 5%;
+    padding: 10px 5px 10px 5px;
+}
+
+.trip-data div,
+.trip-data h2 {
+    text-align: center;
 }
 
 .trip-data h2 {
     padding-top: 5px;
     font-size: 1.5em;
     font-weight: 700;
-    text-align: center;
-
 }
 
 .weather-forecast {
-    align-items: center;
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }

@@ -4,18 +4,18 @@ $error-message: #e2000c;
 $dark-color: #292838;
 $ligth-color: #faf5f2;
 
-.trip-info {
+.trip-planning-form {
     display: flex;
     flex-direction: column;
 }
 
-.trip-info label {
+.trip-planning-form label {
     font-weight: 600;
     margin: 10px 0 10px 10px;
 }
 
-.trip-info input,
-.trip-info select {
+.trip-planning-form input,
+.trip-planning-form select {
     width: 90%;
     align-self: center;
     font-family: $font;
@@ -24,7 +24,7 @@ $ligth-color: #faf5f2;
     padding-left: 10px;
 }
 
-.trip-info button {
+.trip-planning-form button {
     align-self: center;
     margin: 30px 0 10px 0;
     height: 30px;
@@ -33,7 +33,7 @@ $ligth-color: #faf5f2;
     border: 1px $dark-color solid;
 }
 
-.trip-info button:hover {
+.trip-planning-form button:hover {
     border: 1px $ligth-color solid;
     color: $ligth-color;
     background-color: $dark-color;
