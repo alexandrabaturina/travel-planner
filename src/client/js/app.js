@@ -257,6 +257,10 @@ for (let code in mapping) {
     selectCountry.options[selectCountry.options.length] = new Option(mapping[code], code);
 }
 
+// Media queries
+const mediumDesktop = window.matchMedia('(min-width: 479px)');
+const largeDesktop = window.matchMedia('(min-width: 992px)');
+
 // UI elements
 const destinationCity = document.querySelector('#destination-city');
 const destinationCountry = document.querySelector('#destination-country');
@@ -420,6 +424,24 @@ const updateUI = (projectData) => {
     if (projectData.imageIsAvailable) {
         defaultImage.src = projectData.imageURL;
         figcaption.innerText = `${projectData.city}, ${projectData.country}`;
+        if (mediumDesktop.matches) {
+            document.querySelector('.container').style = `
+                grid-template-areas:
+                    "hd hd"
+                    "form data"
+                    "image data"
+                    "ft ft"
+            `;
+        }
+        if (largeDesktop.matches) {
+            document.querySelector('.container').style = `
+                grid-template-areas:
+                    "hd hd"
+                    "form data"
+                    "form image"
+                    "ft ft"
+            `;
+        }
     } else {
         imageNotFound.innerText =
             `Sorry, there is no picture of 
