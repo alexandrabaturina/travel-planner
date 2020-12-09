@@ -257,9 +257,8 @@ for (let code in mapping) {
     selectCountry.options[selectCountry.options.length] = new Option(mapping[code], code);
 }
 
-// Media queries
+// Media query
 const mediumDesktop = window.matchMedia('(min-width: 479px)');
-const largeDesktop = window.matchMedia('(min-width: 992px)');
 
 // UI elements
 const destinationCity = document.querySelector('#destination-city');
@@ -422,6 +421,10 @@ const updateUI = (projectData) => {
     tripInfoHeader.innerText = "YOUR TRIP INFO";
 
     if (projectData.imageIsAvailable) {
+        document.querySelector('.container').style = `
+        grid-template-rows: 80px 1fr 1fr 1fr 50px;
+        `;
+
         defaultImage.src = projectData.imageURL;
         figcaption.innerText = `${projectData.city}, ${projectData.country}`;
         if (mediumDesktop.matches) {
@@ -429,16 +432,7 @@ const updateUI = (projectData) => {
                 grid-template-areas:
                     "hd hd"
                     "form data"
-                    "image data"
-                    "ft ft"
-            `;
-        }
-        if (largeDesktop.matches) {
-            document.querySelector('.container').style = `
-                grid-template-areas:
-                    "hd hd"
-                    "form data"
-                    "form image"
+                    "form image "
                     "ft ft"
             `;
         }
