@@ -426,7 +426,9 @@ const updateUI = (projectData) => {
         `;
 
         defaultImage.src = projectData.imageURL;
-        figcaption.innerText = `${projectData.city}, ${projectData.country}`;
+        figcaption.innerText = `
+            ${projectData.city.charAt(0).toUpperCase() + projectData.city.slice(1)}, ${projectData.country}`;
+
         if (mediumDesktop.matches) {
             document.querySelector('.container').style = `
                 grid-template-areas:
