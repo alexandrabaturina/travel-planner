@@ -21,6 +21,7 @@ $error-message: #e2000c;
 
 .trip-data > div {
     padding-top: 20px;
+    height: auto;
 }
 
 .trip-data {
@@ -28,6 +29,7 @@ $error-message: #e2000c;
     background-color: #ffca03;
     border-radius: 5px;
     font-weight: 500;
+    height: auto;
     width: 90%;
     margin: 5px 5% 20px 5%;
     padding: 10px 5px 10px 5px;
@@ -49,4 +51,12 @@ $error-message: #e2000c;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+/* medium desktops */
+@media (min-width: 479px) {
+    .no-response-from-api,
+    .trip-data {
+        font-size: 1.3em;
+    }
 }
