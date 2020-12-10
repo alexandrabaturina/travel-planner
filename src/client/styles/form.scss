@@ -3,6 +3,7 @@ $font: Arial;
 $error-message: #e2000c;
 $dark-color: #292838;
 $ligth-color: #faf5f2;
+$font-family: Ubuntu;
 
 .trip-planning-form {
     display: flex;
@@ -26,6 +27,7 @@ $ligth-color: #faf5f2;
 
 .trip-planning-form button {
     align-self: center;
+    font-family: $font-family;
     margin: 30px 0 10px 0;
     height: 35px;
     width: 50%;
