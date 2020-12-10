@@ -40,6 +40,7 @@ $ligth-color: #faf5f2;
 }
 
 .error-message {
+    font-size: 0.8em;
     color: $error-message;
     font-weight: 600;
     text-align: justify;
@@ -62,4 +63,7 @@ $ligth-color: #faf5f2;
         width: 70%;
     }
 
+    .error-message {
+        font-size: 0.7em;
+    }
 }

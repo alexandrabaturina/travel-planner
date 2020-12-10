@@ -14,6 +14,8 @@ $error-message: #e2000c;
 
 .no-response-from-api {
     color: $error-message;
+    font-size: 0.8em;
+    text-align: center;
     padding: 5px 5% 0 5%;
     font-weight: 600;
     line-height: 1.3em;
@@ -55,8 +57,11 @@ $error-message: #e2000c;
 
 /* medium desktops */
 @media (min-width: 479px) {
-    .no-response-from-api,
     .trip-data {
         font-size: 1.3em;
+    }
+
+    .no-response-from-api {
+        font-size: 0.7em;
     }
 }
