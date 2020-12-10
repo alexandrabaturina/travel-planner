@@ -383,7 +383,7 @@ const handleSubmit = async (event) => {
     projectData.weatherIcon = weather.data[0].weather.icon;
 
     weather.data.forEach(item => {
-        if (item.datetime === tripStartDate) {
+        if (item.datetime === tripStartDateSelected) {
             projectData.weatherIsAvailable = true;
             projectData.maxTemp = item.max_temp;
             projectData.minTemp = item.min_temp;
