@@ -260,6 +260,8 @@ for (let code in mapping) {
 // Media query
 const mediumDesktop = window.matchMedia('(min-width: 479px)');
 
+const container = document.querySelector('.container');
+
 // UI elements
 const destinationCity = document.querySelector('#destination-city');
 const destinationCountry = document.querySelector('#destination-country');
@@ -271,6 +273,7 @@ const maxTemperature = document.querySelector('.max-temperature');
 const weatherDescription = document.querySelector('.weather-description');
 const weatherIcon = document.querySelector('.weather-icon');
 const imageNotFound = document.querySelector('.image-not-found');
+const destinationImage = document.querySelector('.destination-image');
 const defaultImage = document.querySelector('.default-image');
 const emptyCityInput = document.querySelector('.empty-city-input');
 const emptyDate = document.querySelector('.empty-date');
@@ -297,8 +300,20 @@ const handleSubmit = async (event) => {
 
     destinationCity.classList.remove('data-select-error');
     tripStartDate.classList.remove('data-select-error');
-
+    tripData.classList.remove('visible');
+    defaultImage.src = defaultImageSRC;
+    figcaption.innerText = '';
     tripInfoHeader.innerText = '';
+
+    if (mediumDesktop.matches) {
+        container.style = `
+            grid-template-areas:
+                "hd hd"
+                "form image"
+                "form data "
+                "ft ft"
+        `;
+    }
 
     // Reset error divs
     emptyDate.innerText = '';
@@ -311,6 +326,7 @@ const handleSubmit = async (event) => {
     // Validate city name input
     if (!(Client.checkCityName(destinationCitySelected))) {
         emptyCityInput.classList.add('visible');
+        tripData.classList.add('hidden');
         destinationCity.classList.add('data-select-error');
         emptyCityInput.innerText = 'The specified city name contains invalid characters. Please try again.';
         return
@@ -332,7 +348,25 @@ const handleSubmit = async (event) => {
         emptyDate.classList.add('visible');
         tripStartDate.classList.add('data-select-error');
         emptyDate.innerText = 'Date is required';
+
+        tripData.classList.remove('visible');
+        tripInfoHeader.innerText = '';
+        figcaption.innerText = '';
         return
+    }
+
+    tripData.classList.remove('visible');
+    tripInfoHeader.innerText = '';
+    figcaption.innerText = '';
+    defaultImage.classList.add('hidden');
+    if (mediumDesktop.matches) {
+        container.style = `
+            grid-template-areas:
+                "hd hd"
+                "form image"
+                "form data "
+                "ft ft"
+        `;
     }
 
     let [year, month, day] = tripStartDateSelected.split('-');
@@ -360,6 +394,9 @@ const handleSubmit = async (event) => {
     catch (error) {
         console.error("Geonames API returns no response.");
         noResponseFromAPI.classList.add('visible');
+
+        defaultImage.classList.remove('hidden');
+        defaultImage.src = defaultImageSRC;
         noResponseFromAPI.innerText =
             `Your request cannot be processed.
             Please check city spelling and make sure you're choosing the right country.
@@ -416,35 +453,50 @@ const handleSubmit = async (event) => {
 // Update UI dynamically
 const updateUI = (projectData) => {
 
-    tripData.classList.add('visible');
-
-    tripInfoHeader.innerText = "YOUR TRIP INFO";
+    if (mediumDesktop.matches) {
+        container.style = `
+            grid-template-areas:
+                "hd hd"
+                "form data"
+                "form image"
+                "ft ft";
+            grid-template-rows: 80px 1fr 1fr 50px;
+        `;
+    }
 
     if (projectData.imageIsAvailable) {
-        document.querySelector('.container').style = `
-        grid-template-rows: 80px 1fr 1fr 1fr 50px;
-        `;
 
+        tripData.classList.add('visible');
+        tripInfoHeader.innerText = "YOUR TRIP INFO";
+
+        defaultImage.classList.remove('hidden');
         defaultImage.src = projectData.imageURL;
         figcaption.innerText = `
             ${projectData.city.charAt(0).toUpperCase() + projectData.city.slice(1)}, ${projectData.country}`;
 
+    } else {
+
+        tripData.classList.add('visible');
+        tripInfoHeader.innerText = "YOUR TRIP INFO";
+
+
         if (mediumDesktop.matches) {
-            document.querySelector('.container').style = `
+            container.style = `
                 grid-template-areas:
                     "hd hd"
                     "form data"
-                    "form image "
-                    "ft ft"
+                    "form image"
+                    "ft ft";
+                grid-template-rows: 80px 1fr 90px 50px;
             `;
         }
-    } else {
+
         imageNotFound.innerText =
             `Sorry, there is no picture of 
             ${projectData.city}, ${projectData.country} 
             in Pixabay library.`;
-        defaultImage.src = defaultImageSRC;
     }
+
     daysBeforeTrip.innerText =
         `Your trip to ${projectData.city}, ${projectData.country} is ${projectData.daysAway} days away.`
     typicalWeather.innerText = (projectData.weatherIsAvailable ? 'Typical weather for then is:' :
