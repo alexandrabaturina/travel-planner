@@ -26,8 +26,9 @@ $error-message: #e2000c;
 }
 
 .image-not-found {
-    padding-top: 20px;
+    padding-bottom: 20px;
     color: $error-message;
+    text-align: center;
 }
 
 .pixabay-logo {
