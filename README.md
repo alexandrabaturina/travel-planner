@@ -1,13 +1,13 @@
-# Travel Planner
+# FEND Capstone Project: Travel Planner
 ## Overview
-**Travel Planner** is Java Script based one-page web app than puts together information about your trip.
+**Travel Planner** is the capstone project of Udacity [Front End Developer](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd0011) nanodegree program. It requeres to build JavaScript-based SPA than puts together information about your trip.
 
-The app is built as the capstone project of Udacity [Front End Developer Nanodegree Program](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd0011).
 The goal of the project is to practice with:
 * Setting up [Webpack](https://webpack.js.org/)
 * Webpack loaders and plugins
 * Responsive layouts
-* API requests
+* Using APIs and creating requests to external URLs
+* Dynamic [DOM](https://www.w3schools.com/js/js_htmldom.asp) manipulation
 * Service workers
 * [Jest](https://jestjs.io/) tests
 ## Features
