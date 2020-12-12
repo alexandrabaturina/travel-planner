@@ -1,5 +1,6 @@
-// Default image
+// Images
 import defaultImageSRC from '../img/pass.svg';
+import pixabayLogo from '../img/pixabay_logo.svg';
 
 const mapping = {
     "AF": "Afghanistan",
@@ -280,9 +281,11 @@ const emptyDate = document.querySelector('.empty-date');
 const noResponseFromAPI = document.querySelector('.no-response-from-api');
 const tripInfoHeader = document.querySelector('.trip-info-header');
 const tripData = document.querySelector('.trip-data');
+const logoImage = document.querySelector('.logo-image');
 const figcaption = document.querySelector('.figcaption');
 
 defaultImage.src = defaultImageSRC;
+logoImage.src = pixabayLogo;
 
 // Disable past dates in date picker
 let today = new Date();
