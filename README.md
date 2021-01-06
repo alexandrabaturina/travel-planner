@@ -11,11 +11,18 @@ The goal of the project is to practice with:
 * Service workers
 * [Jest](https://jestjs.io/) tests
 ## Features
-Based on the city and country of destination and trip start date, **Travel Planner** provides the following information:
+To plan a trip, a user has to specify destination city, destination country, and start date for their trip.
+
+![image](https://user-images.githubusercontent.com/53233637/103789063-6d578980-4ff4-11eb-9e3f-06d546e69a27.png)
+
+Based on user input, **Travel Planner** provides the following information:
 * Number of days before the trip.
 * Typical weather for the start date if trip is less than 16 days away and today's weather otherwise.
 * Min and max temperature.
 * The picture of destination city (the most popular picture of the specified destination in [Pixabay](https://pixabay.com/images/search/library/) library).
+
+![image](https://user-images.githubusercontent.com/53233637/103789869-582f2a80-4ff5-11eb-8df0-be8059b3d81b.png)
+
 ## APIs Used
 **Travel Planner** app uses the following APIs:
 * [Geonames](http://www.geonames.org/export/web-services.html)
